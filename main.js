@@ -8,7 +8,7 @@ ver:a0
 cells.png    : 8x16
 building.png : 16x24
 player.png   : 16x16
-tiles.png   : 48*24
+tiles.png   : 48*40
 ==================
 
 参考URL:
@@ -112,8 +112,8 @@ function DrawFrame(g){
  * @constructor
  */
 function DrawPlayers(g){
-    DrawTile(g, 8, 6 * TILESIZE, 5 * TILESIZE); //1P
-    DrawTile(g, 9, 8 * TILESIZE, 5 * TILESIZE); //2P
+    DrawTile(g, 8, 5 * TILESIZE, 4 * TILESIZE); //1P
+    DrawTile(g, 9, 8 * TILESIZE, 7 * TILESIZE); //2P
     DrawTile(g, 10, 9 * TILESIZE, 3 * TILESIZE);//3P
     DrawTile(g, 11, 2 * TILESIZE, 7 * TILESIZE);//4P
 }

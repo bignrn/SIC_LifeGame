@@ -19,15 +19,10 @@ https://youtube.com/playlist?list=PLJ86MSrhnFKVcfaffKPYkvfkPg4qRsijs
  */
 //【他のファイルからの呼び出し】プレイヤー情報表示画面
 document.write("<script src='player_Info.js'></script>");//JSファイルの読み込み
-//【他のファイルからの呼び出し】ボタン描画
-//////////////////////////
-//
-//date:9/8 17/23
-//ver.a0_btn
-//変更点 player_btn.js -> player_event.js
-//
-/////////////////////////
+//【他のファイルからの呼び出し】イベント処理
 document.write("<script src='player_event.js'></script>");//JSファイルの読み込み
+// 【他のファイルからの呼び出し】テキストウィンドウ
+document.write("<script src='textWind.js'></script>");//JSファイルの読み込み
 
 //変数・定数
 const FONT = "10px monospace"; //フォント設定
@@ -74,18 +69,10 @@ function Timer(){
     g.font = FONT;
     g.fillText("HelloWorld" + gCount,0, 120);
 
-    ////////////////////////////
-    //
-    //9/8 16:40
-    //ver.a0_info ver.a0_btn
-    //
-    //変更点：textSet() -> playerInfoMain()
-    //変更点：DrawBtn() -> playerEventMain()
-    //
-    ///////////////////////////
     //【他のファイルからの呼び出し】
-    playerInfoMain();//playerInfoのfunctionを呼び出し
-    playerEventMain(g);  //player_btnのfunctionを呼び出し
+    playerInfoMain();   //playerInfoのfunctionを呼び出し
+    playerEventMain(g); //player_eventのfunctionを呼び出し
+    textWindMain(g);
 
     g2.drawImage(Screen,0,0,Screen.width,Screen.height,0,0,Screen.width * 4,Screen.height * 4);
 }

@@ -1,7 +1,7 @@
 /*
 ここにはゲーム情報を表示する処理を記述
 
-date:2021.09.08
+date:2021.09.09
 ver:a0_info
  */
 //変数・定数
@@ -34,10 +34,10 @@ function playerInfoMain(){
     g.font = INFO_FONT;
     g.fillText("プレイヤー情報",0,20)
 
-    playerInfo(g, 0, 0, "Name1", 30000, 0,"小企業","無し");
-    playerInfo(g, 70,1, "Name2", 6000, 40,"大企業","応情");
-    playerInfo(g, 140,2, "Name3", 12000, 20,"中企業","基情");
-    playerInfo(g, 210,3, "Name4", 5000, 0,"小企業","無し");
+    playerInfo(g, 0, 0, "Name1", 30000, 0,"小企業","無し","あり");
+    playerInfo(g, 90,1, "Name2", 6000, 40,"大企業","応情","無し");
+    playerInfo(g, 180,2, "Name3", 12000, 20,"中企業","基情","あり");
+    playerInfo(g, 270,3, "Name4", 5000, 0,"小企業","無し","無し");
 }
 
 /**
@@ -65,8 +65,9 @@ function settingWi(){
  * @param point     int         単位ポイント数。数字のみ。
  * @param job       String      内定してる企業名
  * @param cer       String      持っている資格名
+ * @param Dating    String      交際の有無。
  */
-function playerInfo(g, interval, index, uName, gold, point, job, cer){
+function playerInfo(g, interval, index, uName, gold, point, job, cer, Dating){
     //定数
     const pix = (index % COL) * TILESIZE;
     const piy = Math.floor(index / ROW) * TILESIZE;
@@ -88,4 +89,6 @@ function playerInfo(g, interval, index, uName, gold, point, job, cer){
     g.fillText("内定："+job, 150, 65 + interval);
     //プレイヤーの資格
     g.fillText("資格："+cer, 150, 85 + interval);
+    //プレイヤーの資格
+    g.fillText("交際："+Dating, 150, 105 + interval);
 }

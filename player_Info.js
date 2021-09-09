@@ -6,7 +6,6 @@ ver:a0_info
  */
 //変数・定数
 const INFO_FONT = "20px monospace"; //フォント設定
-const BORDER    = 4;                //枠の幅
 const COL       = 2;                //タイル列数
 const ROW       = 2;                //タイル行数
 
@@ -19,6 +18,9 @@ let playerImage = "./img/player.png"
  * @returns {number}
  */
 function playerInfoMain(){
+    //定数
+    const BORDER    = 4;                //枠の幅
+
     settingWi();
     const ca = document.getElementById("info"); //ID取得
     const g = ca.getContext("2d");

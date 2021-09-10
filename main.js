@@ -79,12 +79,12 @@ function Timer(){
     g.fillText("HelloWorld" + gCount, 0, 120);
     g.fillText("順番：a,b,c,d", 40, 8);
 
-    //****Norarun の作業↓
+    //****Norarun の仕業↓
     //【他のファイルからの呼び出し】
     playerInfoMain();   //playerInfoのfunctionを呼び出し
     playerEventMain(g); //player_eventのfunctionを呼び出し
-    // textWindMain(g);
-    //****Norarun の作業↑
+    // textWindMain(g,"交際","namae2","彼女と別れた。");
+    //****Norarun の仕業↑
     g2.drawImage(Screen,0,0,Screen.width,Screen.height,0,0,Screen.width * 4,Screen.height * 4);
 }
 

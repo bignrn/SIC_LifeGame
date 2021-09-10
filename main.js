@@ -120,7 +120,7 @@ function SetStartPosition(x, y) {
  * @constructor
  */
 function DrawPlayers(g){
-    for (let i = 0; i < players; i++){
+    for (let i = 0; i < Starts.length; i++){
         DrawTile(g, 8 + i, Starts[i][0], Starts[i][1]);
     }
 }

@@ -18,12 +18,12 @@ https://www.ipentec.com/document/javascript-link-js-file-to-js-file
 https://youtube.com/playlist?list=PLJ86MSrhnFKVcfaffKPYkvfkPg4qRsijs
 
  */
+//他のファイルからの呼び出し】テキストウィンドウ
+document.write("<script src='textWind.js'></script>");//JSファイルの読み込み
 //【他のファイルからの呼び出し】プレイヤー情報表示画面
 document.write("<script src='player_Info.js'></script>");//JSファイルの読み込み
 //【他のファイルからの呼び出し】イベント処理
 document.write("<script src='player_event.js'></script>");//JSファイルの読み込み
-//他のファイルからの呼び出し】テキストウィンドウ
-document.write("<script src='textWind.js'></script>");//JSファイルの読み込み
 //他のファイルからの呼び出し】マップタイル情報
 document.write("<script src='map.js'></script>");//JSファイルの読み込み
 

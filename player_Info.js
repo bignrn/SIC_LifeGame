@@ -5,7 +5,7 @@ date:2021.09.09
 ver:a0_info
  */
 //変数・定数
-const INFO_FONT = "20px monospace"; //フォント設定
+const INFO_FONT = "20px fantasy"; //フォント設定
 const COL       = 2;                //タイル列数
 const ROW       = 2;                //タイル行数
 
@@ -86,7 +86,7 @@ function playerInfo(g, interval, index, uName, gold, point, offer, cer, Dating, 
     //プレイヤーの名前
     g.fillText(uName, 50, 43 + interval);
     //プレイヤーの金額
-    g.fillText("G." + gold, 10, 65 + interval);
+    g.fillText("￥." + gold, 10, 65 + interval);
     //プレイヤーの単位
     g.fillText("単位："+point+"/40", 10, 85 + interval);
     //プレイヤーの内定

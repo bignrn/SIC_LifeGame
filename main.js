@@ -41,6 +41,7 @@ let gCount = 0; //内部カウンター
 let gImageMap;
 
 var Map = function (){getMapData()};  //マップタイルの要素番号を取得(←map.js)
+let Starts; //プレイヤー駒の初期位置
 
 /**
  * タイマーイベント
@@ -63,7 +64,10 @@ function Timer(){
     //画像生成
     for (let y = 0;y < Map.length;y++){
         for (let x = 0;x < Map[y].length;x++){
-            DrawTile(g, Map[y][x], x * TILESIZE, y * TILESIZE);//マップを描画するファンクションを呼出
+            const idx = Map[y][x];
+            DrawTile(g, idx, x * TILESIZE, y * TILESIZE);       //マップを描画するファンクションを呼出
+            if(idx == 41)
+                SetStartPosition(x * TILESIZE, y * TILESIZE);   //スタートマスの位置をプレイヤーの初期位置に設定
         }
     }
 
@@ -72,14 +76,14 @@ function Timer(){
     DrawFrame(g);
 
     g.font = FONT;
-    g.fillText("HelloWorld" + gCount,0, 120);
+    g.fillText("HelloWorld" + gCount, 0, 120);
     g.fillText("順番：a,b,c,d", 40, 8);
 
     //****Norarun の作業↓
     //【他のファイルからの呼び出し】
     playerInfoMain();   //playerInfoのfunctionを呼び出し
     playerEventMain(g); //player_eventのfunctionを呼び出し
-    textWindMain(g);
+    // textWindMain(g);
     //****Norarun の作業↑
     g2.drawImage(Screen,0,0,Screen.width,Screen.height,0,0,Screen.width * 4,Screen.height * 4);
 }
@@ -96,28 +100,42 @@ function DrawFrame(g){
 }
 
 /**
- * マップ内のプレイヤーを上乗せする
- * g context
+ * プレイヤー駒を置くためのスタート位置を格納
+ * @param x longitude
+ * @param y latitude
+ * @constructor
+ */
+function SetStartPosition(x, y) {
+    Starts = [
+        [x, y],
+        [x + TILESIZE, y],
+        [x, y + TILESIZE],
+        [x + TILESIZE, y + TILESIZE]
+    ]
+}
+
+/**
+ * マップ上のスタート位置にプレイヤーを上乗せする
+ * @param g context
  * @constructor
  */
 function DrawPlayers(g){
-    DrawTile(g, 8, 5 * TILESIZE, 4 * TILESIZE); //1P
-    DrawTile(g, 9, 8 * TILESIZE, 7 * TILESIZE); //2P
-    DrawTile(g, 10, 9 * TILESIZE, 3 * TILESIZE);//3P
-    DrawTile(g, 11, 2 * TILESIZE, 7 * TILESIZE);//4P
+    for (let i = 0; i < players; i++){
+        DrawTile(g, 8 + i, Starts[i][0], Starts[i][1]);
+    }
 }
 
 /**
  * マップ描画
  * @param g context
  * @param idx index_number
- * @param x langitude
+ * @param x longitude
  * @param y latitude
  * @constructor
  */
 function DrawTile(g, idx, x, y) {
-    const ix = Math.floor(idx % TILECOLUMN) * 8;
-    const iy = Math.floor(idx / TILECOLUMN) * 8;
+    const ix = Math.floor(idx % TILECOLUMN) * TILESIZE;
+    const iy = Math.floor(idx / TILECOLUMN) * TILESIZE;
     g.drawImage(gImageMap, ix,iy,TILESIZE,TILESIZE, x,y,TILESIZE,TILESIZE);  //描画 8×8
     /*
         元の書き方

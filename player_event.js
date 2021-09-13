@@ -14,10 +14,13 @@ const KUP    = 38;   //キーボード番号設定
 const KRIGHT = 39;   //キーボード番号設定
 const KDOWN  = 40;   //キーボード番号設定
 
-let e_sw_flg       = false;            //ON/OFFを切り替える
-let e_swMemory  = e_sw_flg;            //押されたか記憶する
-let e_keyNum    = -1;               //押されたキーボード番号を取得
-let e_gameWatch = true;             //スタート画面を消す
+let e_sw_flg    = false;    //ON/OFFを切り替える
+let e_event_flg = false;    //イベントが呼ばれたかを確認
+let e_swMemory  = e_sw_flg; //押されたか記憶する
+let e_keyNum    = -1;       //押されたキーボード番号を取得
+let e_gameWatch = true;     //スタート画面を消す
+let e_btn_index = 0;        //ボタンの移動
+
 /**
  * ボタンを描画する
  * @param g getContext 描画するためのインスタンス(main)
@@ -41,6 +44,10 @@ function playerEventMain(g) {
     //ヘルプボタンが押された時に
     if (e_sw_flg){
         helpWindMain(g);//ヘルプ画面が表示される
+    }
+    //イベント発生時にボタンで消す処理
+    if(e_event_flg){
+        textWindMain(g,"交際","namae2","彼女と別れた。\n改行。改行",1000);
     }
 }
 /**
@@ -71,11 +78,18 @@ function gameWatch(){
 window.onkeydown = function (e) {
     let c = e.keyCode;//キーコード取得
 
-    if (c == KLEFT) { console.log("左") }   //左
+    if (c == KLEFT && e_btn_index>0) {
+        console.log("左");
+        e_btn_index--;
+    }                                       //左
     if (c == KUP) { console.log("上") }     //上
-    if (c == KRIGHT) { console.log("右") }  //右
+    if (c == KRIGHT && e_btn_index<1) {
+        console.log("右");
+        e_btn_index++;
+    }                                       //右
     if (c == KDOWN) { console.log("下") }   //下
-    if (!e_gameWatch && c == KH) {          //bugの阻止のため。ゲームが始まってから使える様に設定。
+    //bugの阻止のため。ゲームが始まってから使える様に設定。かつ、イベント発生時も起動しない。
+    if (!e_gameWatch && c == KH  && !e_event_flg) {
         console.log("H");
         HelpKeySwFun();
         e_keyNum=KH;
@@ -83,6 +97,7 @@ window.onkeydown = function (e) {
     if (c == KENTER) {
         console.log("ENTER");
         gameWatch();
+        e_event_flg = false;    //イベント処理
         e_keyNum=KENTER;
     }                                       //ENTER
     if (c == KSPACE) {
@@ -91,6 +106,7 @@ window.onkeydown = function (e) {
         e_keyNum=KSPACE;
     }                                       //SPACE
     console.log("★押されたキーボード番号："+c)
+    console.log("btn："+e_btn_index)
 }
 
 /*

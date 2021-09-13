@@ -66,8 +66,8 @@ function Timer(){
     const g = Screen.getContext("2d");
 
     //画像生成
-    for (let y = 0;y < Map.length;y++){
-        for (let x = 0;x < Map[y].length;x++){
+    for (var y = 0;y < Map.length;y++){
+        for (var x = 0;x < Map[y].length;x++){
             const idx = Map[y][x];
             DrawTile(g, idx, x * TILESIZE, y * TILESIZE);       //マップを描画するファンクションを呼出
             if(idx == 41 && titleflag)
@@ -87,7 +87,9 @@ function Timer(){
     //【他のファイルからの呼び出し】
     playerInfoMain();   //playerInfoのfunctionを呼び出し
     playerEventMain(g); //player_eventのfunctionを呼び出し
-    // textWindMain(g,"交際","namae2","彼女と別れた。");
+    // if(gCount == 15){
+    //     e_event_flg = true;
+    // }
     //****Norarun の仕業↑
     g2.drawImage(Screen,0,0,Screen.width,Screen.height,0,0,Screen.width * 4,Screen.height * 4);
 }
@@ -124,7 +126,7 @@ function SetStartPosition(x, y) {
  * @constructor
  */
 function DrawPlayers(g){
-    for (let i = 0; i < players; i++){  //変更箇所。マップ上に表示する人数をラジオボタンから取得した数値に変更
+    for (var i = 0; i < players; i++){  //変更箇所。マップ上に表示する人数をラジオボタンから取得した数値に変更
         DrawTile(g, 8 + i, Starts[i][0], Starts[i][1]);
     }
 }
@@ -160,7 +162,7 @@ function GetPlayers(){
     let len = elements.length;
     let checkValue = '';
 
-    for (let i = 0; i < len; i++){
+    for (var i = 0; i < len; i++){
         if (elements.item(i).checked){
             checkValue = elements.item(i).value;
         }

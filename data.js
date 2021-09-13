@@ -25,31 +25,54 @@ var jobkind = { "飲食": 800, "デスクワーク": 900, "配達": 900, "工場
 //資格ランクの連想配列
 var achieverank = { "なし": 0, "基情": 1, "応情": 2, "高度": 3 };
 //プレイヤーごとの所持データの格納先
-var playersBox = new Object();
+var playersBox;
 
 //プレイヤー番号（仮置き)
 var playernumber = 0;
 
 //プレイヤー名をキーとした連想配列の設定(ファンクションにしなくても可)
 function defaultset() {
-    for (var i = 0; i < 4; i++) {
-
-        playersBox[i] = { "name": "" };
-        playersBox[i] = { "apply": 0 };
-        playersBox[i] = { "achievement": "なし" };
-        playersBox[i] = { "offer": "なし" };
-        playersBox[i] = { "girlfriend": "なし" };
-        playersBox[i] = { "friendly": 0 };
-        playersBox[i] = { "credit": 0 };
-        playersBox[i] = { "job": "なし" };
-
-        // applys.names = 0;
-        // achievement.names[i] = "なし";
-        // offer.names[i] = "未定";
-        // girlfriend.names[i] = "なし";
-        // friendly.names[i] = 0;
-        // credit.names[i] = 0;
-        // job.names[i] = "なし";
+    playersBox = {
+        0:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        1:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        2:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        3:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
     }
 }
 /*未実装

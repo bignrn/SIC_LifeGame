@@ -1,7 +1,7 @@
 /*
 ここにはゲーム情報を表示する処理を記述
 
-date:2021.09.09
+date:2021.09.13
 ver:a0_info
  */
 //変数・定数
@@ -37,10 +37,13 @@ function playerInfoMain(){
     g.fillText("プレイヤー情報",0,20);
 
     //プレイヤーの情報
-    playerInfo(g, 0, 0, "Name1", 30000, 0,"小企業","無し","あり");
-    playerInfo(g, 110,1, "Name2", 6000, 40,"大企業","応情","無し");
-    playerInfo(g, 220,2, "Name3", 12000, 20,"中企業","基情","あり");
-    playerInfo(g, 330,3, "Name4", 5000, 0,"小企業","無し","無し");
+    // defaultset();
+    let inte = 0;
+    for (let i = 0; i < players; i++){
+        // playerInfo(g, inte, i, playersBox[i]["name"], playersBox[i]["apply"],playersBox[i]["credit"] ,playersBox[i]["offer"],playersBox[i]["achievement"],playersBox[i]["girlfriend"]);
+        playerInfo(g, inte, i, "Name", 6000, 40,"大企業","応情","無し");
+        inte += 110;
+    }
 }
 
 /**

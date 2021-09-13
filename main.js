@@ -1,7 +1,7 @@
 /*
 TEST RUN
 
-date:2021.09.08
+date:2021.09.13
 ver:a0
 ==================
 *Image File size*
@@ -18,6 +18,8 @@ https://www.ipentec.com/document/javascript-link-js-file-to-js-file
 https://youtube.com/playlist?list=PLJ86MSrhnFKVcfaffKPYkvfkPg4qRsijs
 
  */
+//他のファイルからの呼び出し】マップタイル情報
+document.write("<script src='data.js'></script>");//JSファイルの読み込み
 //他のファイルからの呼び出し】テキストウィンドウ
 document.write("<script src='textWind.js'></script>");//JSファイルの読み込み
 //【他のファイルからの呼び出し】プレイヤー情報表示画面
@@ -174,6 +176,7 @@ function NonePlayers(){
     const element = document.getElementById('playing');
     element.style.display = "none";
     titleflag = false;
+    e_gameWatch = false;
 }
 //ここまで追記箇所
 

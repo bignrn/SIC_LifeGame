@@ -2,7 +2,7 @@
 ゲーム内で発生したイベントで、
 メッセージ表示などを行う。
 
-date:2021.09.09
+date:2021.09.13
 Ver.a0_tWind
  */
 //変数
@@ -48,9 +48,9 @@ function textWindMain(g, eventName, uName,contents){
  */
 function helpWindMain(g){
     console.log("helpSettingWindMain(g)");
-    SettingHelp_setting(g,"設定画面");
+    SettingHelp_setting(g,"ヘルプ画面");
 
-    g.fillText("・キーボード",40, 53);
+    g.fillText("・キーボード操作",40, 53);
     g.fillText("・情報の見方：",40, 63);
 }
 

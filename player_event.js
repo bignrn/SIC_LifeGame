@@ -1,7 +1,7 @@
 /*
 ここにはボタン処理を記述
 
-date:2021.09.08
+date:2021.09.13
 ver:a0_event
  */
 //変数・定数
@@ -14,8 +14,8 @@ const KUP    = 38;   //キーボード番号設定
 const KRIGHT = 39;   //キーボード番号設定
 const KDOWN  = 40;   //キーボード番号設定
 
-let e_flg       = false;            //キーボード用
-let e_memory    = e_flg;            //押されたか記憶する
+let e_sw_flg       = false;            //ON/OFFを切り替える
+let e_swMemory  = e_sw_flg;            //押されたか記憶する
 let e_keyNum    = -1;               //押されたキーボード番号を取得
 let e_gameWatch = true;             //スタート画面を消す
 /**
@@ -24,9 +24,6 @@ let e_gameWatch = true;             //スタート画面を消す
  * @returns {number}
  */
 function playerEventMain(g) {
-    // console.log("player_event playerEventMain(g)");
-    console.log("gameWatch="+e_gameWatch)
-
     g.font = EVENT_FONT;
     g.fillText("HELP:キーボード[H]", 2, 142);
 
@@ -39,26 +36,33 @@ function playerEventMain(g) {
     //スタート画面を消す
     if (e_gameWatch){
         startWind(g);
-        return;
-    }else if(e_memory && (e_keyNum==KSPACE || e_keyNum==KENTER)){
-        delTextWind(g);
+        return;         //強制的にbreakさせている。
     }
     //ヘルプボタンが押された時に
-    if (e_flg && e_keyNum==KH){
-        helpWindMain(g);
-    }else if(e_memory && e_keyNum==KH){
-        delTextWind(g);
+    if (e_sw_flg){
+        helpWindMain(g);//ヘルプ画面が表示される
     }
 }
 /**
  * ヘルプボタン処理
+ * 押されていたら      :flase
+ * 押されていないなら   :true
  * @constructor
  */
-function HelpKeyFun(){
-    if(e_flg){
-        e_flg = false;
+function HelpKeySwFun(){
+    if(e_sw_flg){
+        e_sw_flg = false;
     }else{
-        e_flg = true;
+        e_sw_flg = true;
+    }
+}
+
+/**
+ * ゲームがスタートしたか判定する
+ */
+function gameWatch(){
+    if (e_gameWatch){
+        NonePlayers();
     }
 }
 /**
@@ -71,24 +75,19 @@ window.onkeydown = function (e) {
     if (c == KUP) { console.log("上") }     //上
     if (c == KRIGHT) { console.log("右") }  //右
     if (c == KDOWN) { console.log("下") }   //下
-    if (!e_gameWatch && c == KH) {          //bugの阻止のためにゲームが始まってから使える様に設定
+    if (!e_gameWatch && c == KH) {          //bugの阻止のため。ゲームが始まってから使える様に設定。
         console.log("H");
-        HelpKeyFun();
-        e_memory=e_flg;
+        HelpKeySwFun();
         e_keyNum=KH;
     }                                       //H
     if (c == KENTER) {
         console.log("ENTER");
-        if (e_gameWatch){
-            e_gameWatch = false;
-        }
+        gameWatch();
         e_keyNum=KENTER;
     }                                       //ENTER
     if (c == KSPACE) {
         console.log("SPACE");
-        if (e_gameWatch){
-            e_gameWatch = false;
-        }
+        gameWatch();
         e_keyNum=KSPACE;
     }                                       //SPACE
     console.log("★押されたキーボード番号："+c)

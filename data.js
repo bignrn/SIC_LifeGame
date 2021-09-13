@@ -2,7 +2,7 @@
 //プレイヤー名
 var names = { 0: "Name1", 1: "Name2", 2: "Name3", 3: "Name4" };
 //所持金
-var applys = {};
+var applys = new Object();
 //所持単位数
 var credit = {};
 //所持資格
@@ -25,16 +25,28 @@ var jobkind = { "飲食": 800, "デスクワーク": 900, "配達": 900, "工場
 //資格ランクの連想配列
 var achieverank = { "なし": 0, "基情": 1, "応情": 2, "高度": 3 };
 
+var playersBox = new Object();
+
 //プレイヤー名をキーとした連想配列の設定(ファンクションにしなくても可)
 function defaultset() {
-    for (var i = 0; i < names.length; i++) {
-        applys.names[i] = 0;
-        achievement.names[i] = "なし";
-        offer.names[i] = "未定";
-        girlfriend.names[i] = "なし";
-        friendly.names[i] = 0;
-        credit.names[i] = 0;
-        job.names[i] = "なし";
+    for (var i = 0; i < 4; i++) {
+
+        playersBox[i] = { "name":""};
+        playersBox[i] = { "apply": 0};
+        playersBox[i] = {"achievement": "なし"};
+        playersBox[i] = {"offer":"なし"};
+        playersBox[i] = {"girlfriend":"なし"};
+        playersBox[i] = {"friendly":0};
+        playersBox[i] = {"credit":0};
+        playersBox[i] = {"job":"なし"};
+
+        // applys.names = 0;
+        // achievement.names[i] = "なし";
+        // offer.names[i] = "未定";
+        // girlfriend.names[i] = "なし";
+        // friendly.names[i] = 0;
+        // credit.names[i] = 0;
+        // job.names[i] = "なし";
     }
 }
 

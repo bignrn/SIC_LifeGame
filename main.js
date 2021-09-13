@@ -42,6 +42,8 @@ let gImageMap;
 
 var Map = function (){getMapData()};  //マップタイルの要素番号を取得(←map.js)
 let Starts; //プレイヤー駒の初期位置
+let players = 4; //プレイヤー人数
+let titleflag = true;   //人数選択したか判断する用
 
 /**
  * タイマーイベント
@@ -66,7 +68,7 @@ function Timer(){
         for (let x = 0;x < Map[y].length;x++){
             const idx = Map[y][x];
             DrawTile(g, idx, x * TILESIZE, y * TILESIZE);       //マップを描画するファンクションを呼出
-            if(idx == 41)
+            if(idx == 41 && titleflag)
                 SetStartPosition(x * TILESIZE, y * TILESIZE);   //スタートマスの位置をプレイヤーの初期位置に設定
         }
     }
@@ -120,7 +122,7 @@ function SetStartPosition(x, y) {
  * @constructor
  */
 function DrawPlayers(g){
-    for (let i = 0; i < Starts.length; i++){
+    for (let i = 0; i < players; i++){  //変更箇所。マップ上に表示する人数をラジオボタンから取得した数値に変更
         DrawTile(g, 8 + i, Starts[i][0], Starts[i][1]);
     }
 }
@@ -146,6 +148,35 @@ function DrawTile(g, idx, x, y) {
     */
 }
 
+// 追記箇所。人数の設定から確定まで
+/**
+ * ラジオボタンで指定された人数の取得
+ * @constructor
+ */
+function GetPlayers(){
+    let elements = document.getElementsByName('players');
+    let len = elements.length;
+    let checkValue = '';
+
+    for (let i = 0; i < len; i++){
+        if (elements.item(i).checked){
+            checkValue = elements.item(i).value;
+        }
+    }
+    players = checkValue;
+}
+
+/**
+ * 決定ボタンが押されたときに人数設定のラジオボタン等を非表示にする
+ * @constructor
+ */
+function NonePlayers(){
+    const element = document.getElementById('playing');
+    element.style.display = "none";
+    titleflag = false;
+}
+//ここまで追記箇所
+
 /**
  * ゲーム画面立ち上げ
  *
@@ -157,5 +188,5 @@ window.onload = function (){
     Screen.width = WIDTH;
     Screen.height = HEIGHT;
 
-    setInterval(function (){Timer()},1000);//500msで呼び出す
+    setInterval(function (){Timer()},400);//500msで呼び出す
 }

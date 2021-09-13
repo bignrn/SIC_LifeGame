@@ -18,6 +18,14 @@
 </head>
 <body>
 <h1 class="text-primary">ECCキャンパスライフゲーム</h1>
+<!-- 追記部分。プレイ人数を指定する -->
+<div id="playing">　プレイ人数：<br>　
+  <label for="player2"><input type="radio" id="player2" name="players" value="2" onclick="GetPlayers()">２人</label>
+  <label for="player3"><input type="radio" id="player3" name="players" value="3" onclick="GetPlayers()">３人</label>
+  <label for="player4"><input type="radio" id="player4" name="players" value="4" checked onclick="GetPlayers()">４人</label>
+  <input type="submit" name="sub" value="決定" onclick="NonePlayers()">
+</div>
+<!-- ここまで追記部分 -->
 <div class="container row">
   <div class="col-11">
     <canvas id="main"></canvas>

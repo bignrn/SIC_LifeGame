@@ -9,6 +9,10 @@ const EVENT_FONT= "10px monospace"; //フォント設定
 const KENTER = 13;   //キーボード番号設定
 const KH     = 72;   //キーボード番号設定
 const KSPACE = 32;   //キーボード番号設定
+const KLEFT  = 37;   //キーボード番号設定
+const KUP    = 38;   //キーボード番号設定
+const KRIGHT = 39;   //キーボード番号設定
+const KDOWN  = 40;   //キーボード番号設定
 
 let e_flg       = false;            //キーボード用
 let e_memory    = e_flg;            //押されたか記憶する
@@ -32,16 +36,17 @@ function playerEventMain(g) {
     //後々、別のfunctionに移動する予定
     //
     ////////////////
-    //ヘルプボタンが押された時に
-    if (e_flg && e_keyNum==KH){
-        textWindMain(g, "デート","Name1","デートイベントだよ");
-    }else if(e_memory && e_keyNum==KH){
-        delTextWind(g);
-    }
     //スタート画面を消す
     if (e_gameWatch){
         startWind(g);
-    }else if(e_memory && e_keyNum==KSPACE){
+        return;
+    }else if(e_memory && (e_keyNum==KSPACE || e_keyNum==KENTER)){
+        delTextWind(g);
+    }
+    //ヘルプボタンが押された時に
+    if (e_flg && e_keyNum==KH){
+        helpWindMain(g);
+    }else if(e_memory && e_keyNum==KH){
         delTextWind(g);
     }
 }
@@ -62,18 +67,22 @@ function HelpKeyFun(){
 window.onkeydown = function (e) {
     let c = e.keyCode;//キーコード取得
 
-    if (c == 37) { console.log("左") }       //左
-    if (c == 38) { console.log("上") }       //上
-    if (c == 39) { console.log("右") }       //右
-    if (c == 40) { console.log("下") }       //下
-    if (c == KH) {
+    if (c == KLEFT) { console.log("左") }   //左
+    if (c == KUP) { console.log("上") }     //上
+    if (c == KRIGHT) { console.log("右") }  //右
+    if (c == KDOWN) { console.log("下") }   //下
+    if (!e_gameWatch && c == KH) {          //bugの阻止のためにゲームが始まってから使える様に設定
         console.log("H");
         HelpKeyFun();
         e_memory=e_flg;
         e_keyNum=KH;
     }                                       //H
     if (c == KENTER) {
-        console.log("ENTER")
+        console.log("ENTER");
+        if (e_gameWatch){
+            e_gameWatch = false;
+        }
+        e_keyNum=KENTER;
     }                                       //ENTER
     if (c == KSPACE) {
         console.log("SPACE");
@@ -81,7 +90,7 @@ window.onkeydown = function (e) {
             e_gameWatch = false;
         }
         e_keyNum=KSPACE;
-    }                                       //ENTER
+    }                                       //SPACE
     console.log("★押されたキーボード番号："+c)
 }
 

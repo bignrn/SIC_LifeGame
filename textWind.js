@@ -43,16 +43,28 @@ function textWindMain(g, eventName, uName,contents){
 }
 
 /**
+ * ヘルプ画面の呼び出し
+ * @param g コンテキスト
+ */
+function helpWindMain(g){
+    console.log("helpSettingWindMain(g)");
+    SettingHelp_setting(g,"設定画面");
+
+    g.fillText("・キーボード",40, 53);
+    g.fillText("・情報の見方：",40, 63);
+}
+
+/**
  * ウィンドウの削除をする
- * @param g
+ * @param g コンテキスト
  */
 function delTextWind(g){
     console.log("delTextWind(g)");
     g.clearRect(50,48,WTWIDHT,WTHEIGHT);
 }
 /**
- * 設定
- * @param g
+ * テキストウィンドウ用設定
+ * @param g コンテキスト
  * @constructor
  */
 function SettingTextWind(g){
@@ -65,4 +77,24 @@ function SettingTextWind(g){
     g.fillStyle = "white";  //背景の色
     g.fillRect(51,49,WTWIDHT - BORDER ,WTHEIGHT - BORDER);
     g.fillStyle = "black";  //枠線の色
+}
+/**
+ * ヘルプ・設定ウィンドウ用設定
+ * @param g         コンテキスト
+ * @param bigTitle  テキストの見出し
+ * @constructor
+ */
+function SettingHelp_setting(g,bigTitle){
+    //定数
+    const BORDER    = 2;    //枠の幅
+
+    //ウィンドウ
+    g.fillStyle = "black";  //枠線の色
+    g.fillRect(35,33,WTWIDHT + 50,WTHEIGHT + 50);
+    g.fillStyle = "white";  //背景の色
+    g.fillRect(36,34,WTWIDHT + 50 - BORDER ,WTHEIGHT + 50 - BORDER);
+    g.fillStyle = "black";  //枠線の色
+
+    //タイトルテキスト
+    g.fillText(bigTitle,37, 43);
 }

@@ -34,7 +34,7 @@ function playerInfoMain(){
     //text
     g.fillStyle = "black";
     g.font = INFO_FONT;
-    g.fillText("プレイヤー情報",0,20)
+    g.fillText("プレイヤー情報",0,20);
 
     //プレイヤーの情報
     playerInfo(g, 0, 0, "Name1", 30000, 0,"小企業","無し","あり");
@@ -47,13 +47,14 @@ function playerInfoMain(){
  * キャンバスの設定
  */
 function settingWi(){
+    //プレイヤー画像
+    gPlayerImage = new Image();gPlayerImage.src = "img/player.png";
+
+    //idの取得
     const ca = document.getElementById("info"); //ID取得
 
     ca.width = WiWidth;     //幅
     ca.height = WiHeight;   //高さ
-
-    //プレイヤー画像
-    gPlayerImage = new Image();gPlayerImage.src = "img/player.png";
 }
 
 /**

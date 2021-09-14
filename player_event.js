@@ -265,7 +265,7 @@ function chanceAchieve(name) {
     return getachieve(name);
 }
 
-//交際、破局マスのイベント(引数:プレイヤー名)(戻り値：イベントテキスト)
+//交際、破局マスのイベント(引数:プレイヤー名)
 function makechance(name) {
     return chance(name);
     
@@ -311,8 +311,8 @@ function getoffer(name) {
 
     var posittion = offered(name, n , playersBox[playernumber]["achievement"]);
 
-    if(positton != "なし"){
-        return "内定を獲得した。\n内定：" + positton;
+    if(posittion != "なし"){
+        return "内定を獲得した。\n内定：" + posittion;
     }else{
         return "お祈りメールをもらった。\n内定：なし"; 
     }

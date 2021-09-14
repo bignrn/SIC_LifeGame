@@ -25,7 +25,48 @@ var jobkind = { "飲食": 800, "デスクワーク": 900, "配達": 900, "工場
 //資格ランクの連想配列
 var achieverank = { "なし": 0, "基情": 1, "応情": 2, "高度": 3 };
 //プレイヤーごとの所持データの格納先
-var playersBox;
+    playersBox = {
+        0:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        1:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        2:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        3:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+    }
 
 //プレイヤー番号（仮置き)
 var playernumber = 0;

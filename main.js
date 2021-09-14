@@ -212,7 +212,7 @@ function GetMove() {
     Starts[np] = move(np, moving);
     var longitude = Starts[np][0] / 8;
     var latitude = Starts[np][1] / 8;
-    console.log("idx:" + Map[latitude][longitude]);
+    getPlayerNum(np, Map[latitude][longitude]);
     turn_player++;
 }
 

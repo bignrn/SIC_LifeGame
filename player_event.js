@@ -61,64 +61,72 @@ for (var i = 0; i < names.length; i++) {
 
 
 var eventArray = {
-    p1:{ 0:getcredit(p1),//単位取得イベント
-        1:failed(p1,flag),//単位喪失イベント
-        2:salary(p1),//バイト代取得イベント
-        3:breakdown(p1),//バイト先消滅イベント
-        4:chanceAchieve(p1),//資格取得イベント
-        5:makechance(p1),//交際破局イベント
-        6:datetime(p1),//デートイベント
-        7:getoffer(p1),//内定取得イベント
-        8:lostoffer(p1),//内定喪失イベント
-        9:fes(p1),//地球祭イベント
-        10:sports(p1),//球技大会イベント
-        11:waste(p1),//お金浪費イベント
-        12:announce(),//中間発表イベント
+    p1:{
+        0:announce(),//中間発表イベント
+        48:fes(p1),//地球祭イベント
+        49:chanceAchieve(p1),//資格取得イベント
+        50:getoffer(p1),//内定取得イベント
+        51:lostoffer(p1),//内定喪失イベント
+        52:sports(p1),//球技大会イベント
+        53:makechance(p1),//交際破局イベント
+        54:datetime(p1),//デートイベント
+        55:salary(p1),//バイト代取得イベント
+        56:breakdown(p1),//バイト先消滅イベント
+        57:failed(p1,flag),//単位喪失イベント
+        58:getcredit(p1),//単位取得イベント
+        59:waste(p1),//お金浪費イベント
+        63:waste(p1),//お金浪費イベント
     },
     
-    p2:{ 0:getcredit(p2),//単位取得イベント
-        1:failed(p2,flag),//単位喪失イベント
-        2:salary(p2),//バイト代取得イベント
-        3:breakdown(p2),//バイト先消滅イベント
-        4:chanceAchieve(p2),//資格取得イベント
-        5:makechance(p2),//交際破局イベント
-        6:datetime(p2),//デートイベント
-        7:getoffer(p2),//内定取得イベント
-        8:lostoffer(p2),//内定喪失イベント
-        9:fes(p2),//地球祭イベント
-        10:sports(p2),//球技大会イベント
-        11:waste(p2),//お金浪費イベント
-        12:announce(),//中間発表イベント
+    p2:{ 
+        0:announce(),//中間発表イベント
+        48:fes(p2),//地球祭イベント
+        49:chanceAchieve(p2),//資格取得イベント
+        50:getoffer(p2),//内定取得イベント
+        51:lostoffer(p2),//内定喪失イベント
+        52:sports(p2),//球技大会イベント
+        53:makechance(p2),//交際破局イベント
+        54:datetime(p2),//デートイベント
+        55:salary(p2),//バイト代取得イベント
+        56:breakdown(p2),//バイト先消滅イベント
+        57:failed(p2,flag),//単位喪失イベント
+        58:getcredit(p2),//単位取得イベント
+        59:waste(p2),//お金浪費イベント
+        63:waste(p2),//お金浪費イベント
     },
     
-    p3:{ 0:getcredit(p3),//単位取得イベント
-        1:failed(p3,flag),//単位喪失イベント
-        2:salary(p3),//バイト代取得イベント
-        3:breakdown(p3),//バイト先消滅イベント
-        4:chanceAchieve(p3),//資格取得イベント
-        5:makechance(p3),//交際破局イベント
-        6:datetime(p3),//デートイベント
-        7:getoffer(p3),//内定取得イベント
-        8:lostoffer(p3),//内定喪失イベント
-        9:fes(p3),//地球祭イベント
-        10:sports(p3),//球技大会イベント
-        11:waste(p3),//お金浪費イベント
-        12:announce(),//中間発表イベント
+    p3:{ 
+        0:announce(),//中間発表イベント
+        48:fes(p3),//地球祭イベント
+        49:chanceAchieve(p3),//資格取得イベント
+        50:getoffer(p3),//内定取得イベント
+        51:lostoffer(p3),//内定喪失イベント
+        52:sports(p3),//球技大会イベント
+        53:makechance(p3),//交際破局イベント
+        54:datetime(p3),//デートイベント
+        55:salary(p3),//バイト代取得イベント
+        56:breakdown(p3),//バイト先消滅イベント
+        57:failed(p3,flag),//単位喪失イベント
+        58:getcredit(p3),//単位取得イベント
+        59:waste(p3),//お金浪費イベント
+        63:waste(p3),//お金浪費イベント
     },
     
-    p4:{ 0:getcredit(p4),//単位取得イベント
-        1:failed(p4,flag),//単位喪失イベント
-        2:salary(p4),//バイト代取得イベント
-        3:breakdown(p4),//バイト先消滅イベント
-        4:chanceAchieve(p4),//資格取得イベント
-        5:makechance(p4),//交際破局イベント
-        6:datetime(p4),//デートイベント
-        7:getoffer(p4),//内定取得イベント
-        8:lostoffer(p4),//内定喪失イベント
-        9:fes(p4),//地球祭イベント
-        10:sports(p4),//球技大会イベント
-        11:waste(p4),//お金浪費イベント
-        12:announce(),//中間発表イベント
+    p4:{ 
+        0:announce(),//中間発表イベント
+        48:fes(p4),//地球祭イベント
+        49:chanceAchieve(p4),//資格取得イベント
+        50:getoffer(p4),//内定取得イベント
+        51:lostoffer(p4),//内定喪失イベント
+        52:sports(p4),//球技大会イベント
+        53:makechance(p4),//交際破局イベント
+        54:datetime(p4),//デートイベント
+        55:salary(p4),//バイト代取得イベント
+        56:breakdown(p4),//バイト先消滅イベント
+        57:failed(p4,flag),//単位喪失イベント
+        58:getcredit(p4),//単位取得イベント
+        59:waste(p4),//お金浪費イベント
+        63:waste(p4),//お金浪費イベント
     },
 };
 

@@ -1,7 +1,7 @@
 /*
 ここにはボタン処理を記述
 
-date:2021.09.13
+date:2021.09.14
 ver:a0_event
  */
 //変数・定数
@@ -48,7 +48,8 @@ function playerEventMain(g) {
     }
     //イベント発生時にボタンで消す処理
     if(e_event_flg){
-        textWindMain(g,"交際","namae2","彼女と別れた。\n改行。改行",1000);
+        // textWindMain(g,"交際","namae2","彼女と別れた。\n改行。改行",1000);
+        eventTextDraw(g,eventArray[p1][48])
     }
 }
 /**
@@ -71,6 +72,8 @@ function HelpKeySwFun(){
 function gameWatch(){
     if (e_gameWatch){
         NonePlayers();
+    }else if(!e_event_flg){
+        GetMove();
     }
 }
 /**
@@ -92,20 +95,21 @@ window.onkeydown = function (e) {
     }                                       //右
     if (c == KDOWN) { console.log("下") }   //下
     //bugの阻止のため。ゲームが始まってから使える様に設定。かつ、イベント発生時も起動しない。
-    if (!e_gameWatch && c == KH  && !e_event_flg) {
+    if (!e_gameWatch && c == KH && !e_event_flg) {
         console.log("H");
         HelpKeySwFun();
         e_keyNum=KH;
     }                                       //H
     if (c == KENTER) {
         console.log("ENTER");
-        gameWatch();
+        gameWatch();            //スタート画面の処理とサイコロ
         e_event_flg = false;    //イベント処理
         e_keyNum=KENTER;
     }                                       //ENTER
     if (c == KSPACE) {
         console.log("SPACE");
-        gameWatch();
+        gameWatch();            //スタート画面の処理とサイコロ
+        e_event_flg = false;    //イベント処理
         e_keyNum=KSPACE;
     }                                       //SPACE
 
@@ -122,6 +126,7 @@ var lateday = {};
 for (var i = 0; i < names.length; i++) {
     lateday.names[i] = 0;
 }
+//ex. eventArray[p1][48]
 
 //仮のプレイヤー番号の設定
 var p1 = 0;

@@ -331,11 +331,11 @@ function sports(name) {
 //中間発表用のメソッド
 function announce() {
     //所持金順位の配列
-    var apply_rank = apply_sort();
+    // var apply_rank = apply_sort();
     //内定順位の配列
-    var offer_rank = offer_sort();
+    // var offer_rank = offer_sort();
     //単位順位の配列
-    var credit_rank = credit_sort();
+    // var credit_rank = credit_sort();
 }
 
 

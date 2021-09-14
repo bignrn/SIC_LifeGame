@@ -123,9 +123,14 @@ for (var i = 0; i < names.length; i++) {
     lateday.names[i] = 0;
 }
 
+//仮のプレイヤー番号の設定
+var p1 = 0;
+var p2 = 1;
+var p3 = 2;
+var p4 = 3;
 
 var eventArray = {
-    p1:{
+    0:{
         0:announce(),//中間発表イベント
         48:fes(p1),//地球祭イベント
         49:chanceAchieve(p1),//資格取得イベント
@@ -142,7 +147,7 @@ var eventArray = {
         63:waste(p1),//お金浪費イベント
     },
     
-    p2:{ 
+    1:{ 
         0:announce(),//中間発表イベント
         48:fes(p2),//地球祭イベント
         49:chanceAchieve(p2),//資格取得イベント
@@ -159,7 +164,7 @@ var eventArray = {
         63:waste(p2),//お金浪費イベント
     },
     
-    p3:{ 
+    2:{ 
         0:announce(),//中間発表イベント
         48:fes(p3),//地球祭イベント
         49:chanceAchieve(p3),//資格取得イベント
@@ -176,7 +181,7 @@ var eventArray = {
         63:waste(p3),//お金浪費イベント
     },
     
-    p4:{ 
+    3:{ 
         0:announce(),//中間発表イベント
         48:fes(p4),//地球祭イベント
         49:chanceAchieve(p4),//資格取得イベント

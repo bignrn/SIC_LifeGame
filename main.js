@@ -47,6 +47,9 @@ var Map = function (){getMapData()};  //マップタイルの要素番号を取�
 var Starts; //プレイヤー駒の初期位置
 var FirstTile;
 var players = 4; //プレイヤー人数
+var order_player = ["1P", "2P", "3P", "4P"];    //プレイヤー名呼出用
+var order_String = "";  //順番表示用
+var moving = ""; //ダイスの出目
 var titleflag = true;   //人数選択したか判断する用
 var turn_player = 0;
 
@@ -85,8 +88,8 @@ function Timer(){
     DrawFrame(g);
 
     g.font = FONT;
-    g.fillText("HelloWorld" + gCount, 0, 120);
-    g.fillText("順番：a,b,c,d", 40, 8);
+    g.fillText("順番：" + order_String, 40, 8);
+    g.fillText(moving, 18, 20);
 
     //****Norarun の作業↓
     //【他のファイルからの呼び出し】
@@ -137,8 +140,7 @@ function SetFirstPosition(x, y) {
  * @constructor
  */
 function DrawPlayers(g){
-    for (var i = 0; i < players; i++){  //変更箇所。マップ上に表示する人数をラジオボタンから取得した数値に変更
-
+    for (var i = 0; i < players; i++){
         DrawTile(g, 8 + i, Starts[i][0], Starts[i][1]);
     }
 }
@@ -193,23 +195,25 @@ function NonePlayers(){
 
     e_gameWatch = false;    //スタート画面を消すため
 
+    for (var i = 0; i < players; i++) {
+        order_String += order_player[i];
+        order_String += " → ";
+    }
+    order_String += order_player[0];
+
     setMapData(Map);
     setPosition(Starts, FirstTile, TILESIZE);
 }
 //ここまで追記箇所
 
 function GetMove() {
-    var moving = Math.round( Math.random() * 5) + 1;
     var np = turn_player % players;
-    console.log(np);
-    Starts[0] = move(0, moving);
-    var longitude = Starts[0][0] / 8;
-    var latitude = Starts[0][1] / 8;
-    console.log(Map[latitude][longitude]);
+    moving = Math.round( Math.random() * 5) + 1;
+    Starts[np] = move(np, moving);
+    var longitude = Starts[np][0] / 8;
+    var latitude = Starts[np][1] / 8;
+    console.log("idx:" + Map[latitude][longitude]);
     turn_player++;
-
-    var content = document.getElementById('dice_number');
-    content.innerHTML = moving;
 }
 
 /**

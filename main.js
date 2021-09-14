@@ -24,9 +24,10 @@ document.write("<script src='textWind.js'></script>");//JSファイルの読み�
 document.write("<script src='player_Info.js'></script>");//JSファイルの読み込み
 //【他のファイルからの呼び出し】イベント処理
 document.write("<script src='player_event.js'></script>");//JSファイルの読み込み
-//他のファイルからの呼び出し】マップタイル情報
+//【他のファイルからの呼び出し】マップタイル情報
 document.write("<script src='map.js'></script>");//JSファイルの読み込み
-
+//【他のファイルからの呼び出し】マップタイル情報
+document.write("<script src='player_move.js'></script>");//JSファイルの読み込み
 
 //変数・定数
 const FONT = "10px monospace"; //フォント設定
@@ -41,9 +42,11 @@ let gCount = 0; //内部カウンター
 let gImageMap;
 
 var Map = function (){getMapData()};  //マップタイルの要素番号を取得(←map.js)
-let Starts; //プレイヤー駒の初期位置
+var Starts; //プレイヤー駒の初期位置
+var FirstTile;
 let players = 4; //プレイヤー人数
 let titleflag = true;   //人数選択したか判断する用
+let turn_player = 0;
 
 /**
  * タイマーイベント
@@ -68,8 +71,10 @@ function Timer(){
         for (let x = 0;x < Map[y].length;x++){
             const idx = Map[y][x];
             DrawTile(g, idx, x * TILESIZE, y * TILESIZE);       //マップを描画するファンクションを呼出
-            if(idx == 41 && titleflag)
+            if(idx == 37 && titleflag)
                 SetStartPosition(x * TILESIZE, y * TILESIZE);   //スタートマスの位置をプレイヤーの初期位置に設定
+            if(idx == 63 && titleflag)
+                SetFirstPosition(x * TILESIZE, y * TILESIZE);
         }
     }
 
@@ -116,13 +121,17 @@ function SetStartPosition(x, y) {
     ]
 }
 
+function SetFirstPosition(x, y) {
+    FirstTile = [x, y];
+}
+
 /**
  * マップ上のスタート位置にプレイヤーを上乗せする
  * @param g context
  * @constructor
  */
 function DrawPlayers(g){
-    for (let i = 0; i < players; i++){  //変更箇所。マップ上に表示する人数をラジオボタンから取得した数値に変更
+    for (let i = 0; i < players; i++){
         DrawTile(g, 8 + i, Starts[i][0], Starts[i][1]);
     }
 }
@@ -174,8 +183,21 @@ function NonePlayers(){
     const element = document.getElementById('playing');
     element.style.display = "none";
     titleflag = false;
+    setMapData(Map);
+    setPosition(Starts, FirstTile, TILESIZE);
 }
 //ここまで追記箇所
+
+function GetMove() {
+    var moving = Math.round( Math.random() * 5) + 1;
+    var np = turn_player % players;
+    console.log(np);
+    Starts[0] = move(0, moving);
+    turn_player++;
+
+    let content = document.getElementById('dice_number');
+    content.innerHTML = moving;
+}
 
 /**
  * ゲーム画面立ち上げ

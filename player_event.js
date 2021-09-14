@@ -329,7 +329,7 @@ function lostoffer(name) {
 //地球祭マスのイベント(引数:プレイヤー名)
 function fes(name) {
     var ran = Math.floor(Math.random() * 2);
-    var text = "お祭りだ！";
+    var text = "お祭りだ！\n";
     const EVENT = ["友達とお祭りを回り、楽しむことができた。\n1000円の消費", "ビンゴ大会に参加。見事にビンゴ！\n1000円獲得",
         "恋人と仲良く展示品などを見て回った。\n1000円の消費、好感度：1", "ビンゴ大会で見事にビンゴ！\n景品を恋人にプレゼントした。\n1000円の消費、好感度：3"];
     var check = festa(name, ran);

@@ -141,7 +141,7 @@ var eventArray = {
         54:datetime(p1),//デートイベント
         55:salary(p1),//バイト代取得イベント
         56:breakdown(p1),//バイト先消滅イベント
-        57:failed(p1,flag),//単位喪失イベント
+        57:failed(p1),//単位喪失イベント
         58:getcredit(p1),//単位取得イベント
         59:waste(p1),//お金浪費イベント
         63:waste(p1),//お金浪費イベント
@@ -158,7 +158,7 @@ var eventArray = {
         54:datetime(p2),//デートイベント
         55:salary(p2),//バイト代取得イベント
         56:breakdown(p2),//バイト先消滅イベント
-        57:failed(p2,flag),//単位喪失イベント
+        57:failed(p2),//単位喪失イベント
         58:getcredit(p2),//単位取得イベント
         59:waste(p2),//お金浪費イベント
         63:waste(p2),//お金浪費イベント
@@ -175,7 +175,7 @@ var eventArray = {
         54:datetime(p3),//デートイベント
         55:salary(p3),//バイト代取得イベント
         56:breakdown(p3),//バイト先消滅イベント
-        57:failed(p3,flag),//単位喪失イベント
+        57:failed(p3),//単位喪失イベント
         58:getcredit(p3),//単位取得イベント
         59:waste(p3),//お金浪費イベント
         63:waste(p3),//お金浪費イベント
@@ -192,7 +192,7 @@ var eventArray = {
         54:datetime(p4),//デートイベント
         55:salary(p4),//バイト代取得イベント
         56:breakdown(p4),//バイト先消滅イベント
-        57:failed(p4,flag),//単位喪失イベント
+        57:failed(p4),//単位喪失イベント
         58:getcredit(p4),//単位取得イベント
         59:waste(p4),//お金浪費イベント
         63:waste(p4),//お金浪費イベント
@@ -212,10 +212,12 @@ function getcredit(name) {
     return "単位を2獲得した。";
 }
 
-/*遅刻、欠席での単位喪失マスのイベント(引数:プレイヤー名 , 遅刻or欠席)(data.jsのファンクションを呼出し)(戻り値：テキスト)
+/*遅刻、欠席での単位喪失マスのイベント(引数:プレイヤー名)(data.jsのファンクションを呼出し)(戻り値：テキスト)
 ***要調整***
 */
-function failed(name, flag) {
+function failed(name) {
+    var flag = "";
+    if(Math.floor(Math.random() * 10) < 3) flag = "欠席";
     var Text = "";
     if (flag == "遅刻") {
         lateday++;
@@ -223,11 +225,11 @@ function failed(name, flag) {
     }
 
     if (flag == "欠席") {
-        credit(name, -2);
+        credite(name, -2);
 
         Text = "授業を欠席してしまった。単位を2失った。"
     } else if (lateday == 3) {
-        credit(name, -2);
+        credite(name, -2);
         lateday = 0;
 
         Text += "遅刻が3回になったので単位を2失った。";
@@ -265,7 +267,7 @@ function makechance(name) {
 
 //デートマスのイベント(引数:プレイヤー名  戻り値：イベントテキスト)
 function datetime(name) {
-    const CHOISE = Math.random(7);
+    const CHOISE = Math.floor(Math.random() * 7);
     //イベントテキスト
     const EVENT = ["が、しかし、お互いに予定が合わず見送りになった。",
         "高級レストランに招待。",
@@ -298,7 +300,7 @@ function making(name) {
 //就職（内定）マスのイベント(引数:プレイヤー名)
 function getoffer(name) {
     //70%で内定取得するための乱数
-    var n = Math.random(10);
+    var n = Math.floor(Math.random() * 10);
 
     offered(name, n);
 
@@ -306,7 +308,7 @@ function getoffer(name) {
 
 //内定取り消しマスのイベント(引数:プレイヤー名)
 function lostoffer(name) {
-    var ran = Math.ramdom(6);
+    var ran = Math.floor(Math.random() * 6);
     var text = "就職前にやらかしてしまった。";
     const EVENT = ["何も言う言葉が思い浮かばない。：内定取り消し", "しかし、どうやら今回のことはなしになった。：回避"];
     missoffer(name, ran);
@@ -320,7 +322,7 @@ function lostoffer(name) {
 
 //地球祭マスのイベント(引数:プレイヤー名)
 function fes(name) {
-    var ran = Math.random(2);
+    var ran = Math.floor(Math.random() * 2);
     var text = "お祭りだ！";
     const EVENT = ["友達とお祭りを回り、楽しむことができた。：1000円の消費", "ビンゴ大会に参加。見事にビンゴ！：1000円獲得",
         "恋人と仲良く展示品などを見て回った。'<br>'：1000円の消費、好感度：1", "ビンゴ大会で見事にビンゴ！景品を恋人にプレゼントした。'<br>'：1000円の消費、好感度：3"];
@@ -337,11 +339,11 @@ function fes(name) {
 
 //球技大会マスのイベント
 function sports(name) {
-    var ran = Math.random(2);
+    var ran = Math.floor(Math.random() * 2);
     const EVENT = ["しかし、試合中にケガをしてしまった。", "みんなと協力したおかげで優勝！！運動不足も解消！",
         "しかし、恋人に情けないところを見せてしまった……", "恋人にいいところを見せることに成功！"];
     const RESULT = ["：1000円の消費", "：単位2獲得", "：1000円の消費、好感度：-1", "：単位2獲得、好感度：1"];
-    var check = sports(name, ran);
+    var check = sport(name, ran);
     var text = "球技大会！";
 
     if (check == 0) {
@@ -368,7 +370,7 @@ function announce() {
 //お金浪費マスのイベント
 function waste(name){
     //どのイベントが起きるかを決める乱数の生成
-    var ran = Math.random(18);
+    var ran = Math.floor(Math.random() * 18);
     //イベントの浪費金額
     var wasteMoney = [
         -700 , -5000 , -8000 , -300 , -1000 , -2600 , -1500 , -4000 , -7000 ,

@@ -5,47 +5,92 @@ date:2021.09.08
 ver:a0_event
  */
 //変数・定数
-const EVENT_FONT = "10px monospace"; //フォント設定
+const EVENT_FONT= "10px monospace"; //フォント設定
+const KENTER = 13;   //キーボード番号設定
+const KH     = 72;   //キーボード番号設定
+const KSPACE = 32;   //キーボード番号設定
+const KLEFT  = 37;   //キーボード番号設定
+const KUP    = 38;   //キーボード番号設定
+const KRIGHT = 39;   //キーボード番号設定
+const KDOWN  = 40;   //キーボード番号設定
 
-const E_FLG      = true;
-
+let e_flg       = false;            //キーボード用
+let e_memory    = e_flg;            //押されたか記憶する
+let e_keyNum    = -1;               //押されたキーボード番号を取得
+let e_gameWatch = true;             //スタート画面を消す
 /**
  * ボタンを描画する
  * @param g getContext 描画するためのインスタンス(main)
  * @returns {number}
  */
 function playerEventMain(g) {
-    console.log("player_event playerEventMain(g)");
+    // console.log("player_event playerEventMain(g)");
+    console.log("gameWatch="+e_gameWatch)
 
     g.font = EVENT_FONT;
     g.fillText("HELP:キーボード[H]", 2, 142);
+
+    /////////////////
+    //
+    //ボタンイベント処理記述
+    //後々、別のfunctionに移動する予定
+    //
+    ////////////////
+    //スタート画面を消す
+    if (e_gameWatch){
+        startWind(g);
+        return;
+    }else if(e_memory && (e_keyNum==KSPACE || e_keyNum==KENTER)){
+        delTextWind(g);
+    }
+    //ヘルプボタンが押された時に
+    if (e_flg && e_keyNum==KH){
+        helpWindMain(g);
+    }else if(e_memory && e_keyNum==KH){
+        delTextWind(g);
+    }
 }
 /**
- *
+ * ヘルプボタン処理
  * @constructor
  */
 function HelpKeyFun(){
-    if(E_FLG){
-
+    if(e_flg){
+        e_flg = false;
     }else{
-
+        e_flg = true;
     }
 }
 /**
  * キーイベント
  */
 window.onkeydown = function (e) {
-    const KH     = 72;   //キーボード番号設定
-    const KENTER = 13;   //キーボード番号設定
     let c = e.keyCode;//キーコード取得
-    
-    if (c == 37) { console.log("左") }       //左
-    if (c == 38) { console.log("上") }       //上
-    if (c == 39) { console.log("右") }       //右
-    if (c == 40) { console.log("下") }       //下
-    if (c == KH) {
-        console.log("H");HelpKeyFun();}        //H
-    if (c == KENTER) { console.log("ENTER") }//ENTER
+
+    if (c == KLEFT) { console.log("左") }   //左
+    if (c == KUP) { console.log("上") }     //上
+    if (c == KRIGHT) { console.log("右") }  //右
+    if (c == KDOWN) { console.log("下") }   //下
+    if (!e_gameWatch && c == KH) {          //bugの阻止のためにゲームが始まってから使える様に設定
+        console.log("H");
+        HelpKeyFun();
+        e_memory=e_flg;
+        e_keyNum=KH;
+    }                                       //H
+    if (c == KENTER) {
+        console.log("ENTER");
+        if (e_gameWatch){
+            e_gameWatch = false;
+        }
+        e_keyNum=KENTER;
+    }                                       //ENTER
+    if (c == KSPACE) {
+        console.log("SPACE");
+        if (e_gameWatch){
+            e_gameWatch = false;
+        }
+        e_keyNum=KSPACE;
+    }                                       //SPACE
     console.log("★押されたキーボード番号："+c)
 }
 

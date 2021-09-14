@@ -44,9 +44,9 @@ let gImageMap;
 var Map = function (){getMapData()};  //マップタイルの要素番号を取得(←map.js)
 var Starts; //プレイヤー駒の初期位置
 var FirstTile;
-let players = 4; //プレイヤー人数
-let titleflag = true;   //人数選択したか判断する用
-let turn_player = 0;
+var players = 4; //プレイヤー人数
+var titleflag = true;   //人数選択したか判断する用
+var turn_player = 0;
 
 /**
  * タイマーイベント
@@ -86,12 +86,12 @@ function Timer(){
     g.fillText("HelloWorld" + gCount, 0, 120);
     g.fillText("順番：a,b,c,d", 40, 8);
 
-    //****Norarun の作業↓
+    //****Norarun の仕業↓
     //【他のファイルからの呼び出し】
     playerInfoMain();   //playerInfoのfunctionを呼び出し
     playerEventMain(g); //player_eventのfunctionを呼び出し
-    // textWindMain(g);
-    //****Norarun の作業↑
+    // textWindMain(g,"交際","namae2","彼女と別れた。");
+    //****Norarun の仕業↑
     g2.drawImage(Screen,0,0,Screen.width,Screen.height,0,0,Screen.width * 4,Screen.height * 4);
 }
 
@@ -131,7 +131,7 @@ function SetFirstPosition(x, y) {
  * @constructor
  */
 function DrawPlayers(g){
-    for (let i = 0; i < players; i++){
+    for (var i = 0; i < players; i++){
         DrawTile(g, 8 + i, Starts[i][0], Starts[i][1]);
     }
 }
@@ -163,11 +163,11 @@ function DrawTile(g, idx, x, y) {
  * @constructor
  */
 function GetPlayers(){
-    let elements = document.getElementsByName('players');
-    let len = elements.length;
-    let checkValue = '';
+    var elements = document.getElementsByName('players');
+    var len = elements.length;
+    var checkValue = '';
 
-    for (let i = 0; i < len; i++){
+    for (var i = 0; i < len; i++){
         if (elements.item(i).checked){
             checkValue = elements.item(i).value;
         }
@@ -193,9 +193,12 @@ function GetMove() {
     var np = turn_player % players;
     console.log(np);
     Starts[0] = move(0, moving);
+    var longitude = Starts[0][0] / 8;
+    var latitude = Starts[0][1] / 8;
+    console.log(Map[latitude][longitude]);
     turn_player++;
 
-    let content = document.getElementById('dice_number');
+    var content = document.getElementById('dice_number');
     content.innerHTML = moving;
 }
 

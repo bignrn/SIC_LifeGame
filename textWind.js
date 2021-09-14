@@ -26,7 +26,7 @@ function startWind(g){
  * @param g             コンテキスト
  * @param eventName     イベントの名前
  * @param uName         対象のプレイヤーの名前
- * @param contents      イベントの内容
+ * @param contents      イベントの内容。改行は1回のみ。
  * @param pay           イベントで支払う金額
  */
 function textWindMain(g, eventName, uName,contents,pay){
@@ -43,12 +43,13 @@ function textWindMain(g, eventName, uName,contents,pay){
     var fontSize = 10;
     var x = 55 ;
     var y = 70 ;
+    //改行処理
     for( var lines=contents.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
         var line = lines[i] ;       //フォントサイズ
         var addY = fontSize ;
         if ( i ) addY += fontSize * lineHeight * i ;
 
-        g.fillText(line, x + 0, y + addY ) ;
+        g.fillText(line, x + 0, y + addY ) ;    //描画
     }
     //料金
     g.fillText("費用："+pay, 55,105);
@@ -62,7 +63,9 @@ function helpWindMain(g){
     console.log("helpSettingWindMain(g)");
     SettingHelp_setting(g,"ヘルプ画面");
 
+    //キーボードの操作記述
     g.fillText("・キーボード操作",40, 53);
+    //ゲーム進行に関わる記述
     g.fillText("・情報の見方：",40, 63);
 }
 

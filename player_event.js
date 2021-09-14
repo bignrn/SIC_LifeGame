@@ -20,7 +20,7 @@ let e_swMemory  = e_sw_flg; //押されたか記憶する
 let e_keyNum    = -1;       //押されたキーボード番号を取得
 let e_gameWatch = true;     //スタート画面を消す
 let e_btn_index = 0;        //ボタンの移動
-
+let idx = 54;
 
 /**
  * ボタンを描画する
@@ -49,8 +49,14 @@ function playerEventMain(g) {
     //イベント発生時にボタンで消す処理
     if(e_event_flg){
         // textWindMain(g,"交際","namae2","彼女と別れた。\n改行。改行",1000);
-        eventTextDraw(g,eventArray[p1][48])
+        eventTextDraw(g,eventArray[p1][idx]);
+        // if(idx < 63){
+        //     idx++;
+        // }else if(idx==0){
+        //     idx = 54;
+        // }
     }
+    console.log("Event_idx:"+idx);
 }
 /**
  * ヘルプボタン処理

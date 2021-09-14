@@ -2,12 +2,12 @@
 ゲーム内で発生したイベントで、
 メッセージ表示などを行う。
 
-date:2021.09.13
+date:2021.09.14
 Ver.a0_tWind
  */
 //変数
-const WTWIDHT   = 150;
-const WTHEIGHT  = 60;
+const WTWIDHT   = 200;
+const WTHEIGHT  = 80;
 
 /**
  * スタート時に一回呼び出される
@@ -18,8 +18,8 @@ function startWind(g){
     SettingTextWind(g);
 
     //文字
-    g.fillText("ゲームスタート画面", 80,65);
-    g.fillText("ーボタンを押してねー", 75,85);
+    g.fillText("ゲームスタート画面", 80,45);
+    g.fillText("ーボタンを押してねー", 75,65);
 }
 /**
  * テキストウィンドウの呼び出しfunction
@@ -55,6 +55,24 @@ function textWindMain(g, eventName, uName,contents,pay){
 }
 
 /**
+ * イベントを表示２
+ * @param g
+ */
+function eventTextDraw(g,text){
+    SettingTextWind(g);
+    //イベント内容
+    var lineHeight = 1.1618 ;	// 行の高さ (フォントサイズに対する倍率)
+    var fontSize = 10;
+    var x = 38 ;
+    var y = 39 ;
+    for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
+        var line = lines[i] ;       //フォントサイズ
+        var addY = fontSize ;
+        if ( i ) addY += fontSize * lineHeight * i ;
+        g.fillText(line, x + 0, y + addY ) ;
+    }
+}
+/**
  * ヘルプ画面の呼び出し
  * @param g コンテキスト
  */
@@ -84,10 +102,11 @@ function SettingTextWind(g){
     const BORDER    = 2;                //枠の幅
 
     //ウィンドウ
+    const position = 35;
     g.fillStyle = "black";  //枠線の色
-    g.fillRect(50,48,WTWIDHT,WTHEIGHT);
+    g.fillRect(position,position-2,WTWIDHT,WTHEIGHT);
     g.fillStyle = "white";  //背景の色
-    g.fillRect(51,49,WTWIDHT - BORDER ,WTHEIGHT - BORDER);
+    g.fillRect(position+1,position-1,WTWIDHT - BORDER ,WTHEIGHT - BORDER);
     g.fillStyle = "black";  //枠線の色
 }
 /**

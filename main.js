@@ -92,9 +92,9 @@ function Timer(){
     //【他のファイルからの呼び出し】
     playerInfoMain();   //playerInfoのfunctionを呼び出し
     playerEventMain(g); //player_eventのfunctionを呼び出し
-    if(gCount == 15){    //イベントデバック
-        e_event_flg = true;
-    }
+    // if(gCount == 15){    //イベントデバック
+    //     getPlayerNum(p1,55);
+    // }
     //****Norarun の仕業↑
     // textWindMain(g);
     //****Norarun の作業↑

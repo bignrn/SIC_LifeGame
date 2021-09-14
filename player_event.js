@@ -21,6 +21,7 @@ let e_keyNum    = -1;       //押されたキーボード番号を取得
 let e_gameWatch = true;     //スタート画面を消す
 let e_btn_index = 0;        //ボタンの移動
 
+
 /**
  * ボタンを描画する
  * @param g getContext 描画するためのインスタンス(main)
@@ -76,6 +77,8 @@ function gameWatch(){
  * キーイベント
  */
 window.onkeydown = function (e) {
+    const KH     = 72;   //キーボード番号設定
+    const KENTER = 13;   //キーボード番号設定
     let c = e.keyCode;//キーコード取得
 
     if (c == KLEFT && e_btn_index>0) {
@@ -105,6 +108,7 @@ window.onkeydown = function (e) {
         gameWatch();
         e_keyNum=KSPACE;
     }                                       //SPACE
+
     console.log("★押されたキーボード番号："+c)
     console.log("btn："+e_btn_index)
 }

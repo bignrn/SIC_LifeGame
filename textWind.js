@@ -10,18 +10,6 @@ const WTWIDHT   = 150;
 const WTHEIGHT  = 60;
 
 /**
- * スタート時に一回呼び出される
- * @param g
- */
-function startWind(g){
-    console.log("startWind(g)")
-    SettingTextWind(g);
-
-    //文字
-    g.fillText("ゲームスタート画面", 80,65);
-    g.fillText("ーボタンを押してねー", 75,85);
-}
-/**
  * テキストウィンドウの呼び出しfunction
  * @param g             コンテキスト
  * @param eventName     イベントの名前
@@ -82,7 +70,7 @@ function delTextWind(g){
  * @param g コンテキスト
  * @constructor
  */
-function SettingTextWind(g){
+function textWindMain(g){
     //定数
     const BORDER    = 2;                //枠の幅
 
@@ -91,25 +79,15 @@ function SettingTextWind(g){
     g.fillRect(50,48,WTWIDHT,WTHEIGHT);
     g.fillStyle = "white";  //背景の色
     g.fillRect(51,49,WTWIDHT - BORDER ,WTHEIGHT - BORDER);
-    g.fillStyle = "black";  //枠線の色
-}
-/**
- * ヘルプ・設定ウィンドウ用設定
- * @param g         コンテキスト
- * @param bigTitle  テキストの見出し
- * @constructor
- */
-function SettingHelp_setting(g,bigTitle){
-    //定数
-    const BORDER    = 2;    //枠の幅
 
-    //ウィンドウ
-    g.fillStyle = "black";  //枠線の色
-    g.fillRect(35,33,WTWIDHT + 50,WTHEIGHT + 50);
-    g.fillStyle = "white";  //背景の色
-    g.fillRect(36,34,WTWIDHT + 50 - BORDER ,WTHEIGHT + 50 - BORDER);
-    g.fillStyle = "black";  //枠線の色
-
-    //タイトルテキスト
-    g.fillText(bigTitle,37, 43);
+    //イベントタイトル
+    g.fillStyle = "black";  //文字の色
+    g.fillText("交際"+"イベント発生", 52,60);
+    //対象プレイヤーの名前
+    g.font = "8px monospace";
+    g.fillText("名前："+"プレイヤー名前", 55,70);
+    //イベント内容
+    g.fillText("内容："+"彼女の誕生日！", 55,80);
+    //イベント内容
+    g.fillText("しかし、プレゼントを忘れてしまった。", 52,90);
 }

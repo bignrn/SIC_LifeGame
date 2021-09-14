@@ -12,8 +12,8 @@ const I_BORDER  = 4;                //枠の幅
 const I_PADING_X= -1;               //X軸方向に選択背景をずらす
 const I_PADING_Y= -2;               //Y軸方向に選択背景をずらす
 
-let WiWidth   = 290;                //ウィンドウ幅
-let WiHeight  = 550;                //ウィンドウ高さ
+let WiWidth     = 290;                //ウィンドウ幅
+let WiHeight    = 550;                //ウィンドウ高さ
 let playerImage = "./img/player.png"
 /**
  * main function

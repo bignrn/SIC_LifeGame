@@ -1,20 +1,20 @@
-//プレイヤー情報を格納するための配列(連想配列じゃなくても可)
-//プレイヤー名
-var names = { 0: "Name1", 1: "Name2", 2: "Name3", 3: "Name4" };
-//所持金
-var applys = new Object();
-//所持単位数
-var credit = {};
-//所持資格
-var achievement = { 0: "なし", 1: "応情", 2: "基情", 3: "なし" };
-//内定
-var offer = { 0: "小企業", 1: "大企業", 2: "中企業", 3: "小企業" };
-//恋人の有無
-var girlfriend = {};
-//恋人との好感度
-var friendly = {};
-//バイトの有無
-var job = {};
+// //プレイヤー情報を格納するための配列(連想配列じゃなくても可)
+// //プレイヤー名
+// var names = { 0: "Name1", 1: "Name2", 2: "Name3", 3: "Name4" };
+// //所持金
+// var applys = new Object();
+// //所持単位数
+// var credit = {};
+// //所持資格
+// var achievement = { 0: "なし", 1: "応情", 2: "基情", 3: "なし" };
+// //内定
+// var offer = { 0: "小企業", 1: "大企業", 2: "中企業", 3: "小企業" };
+// //恋人の有無
+// var girlfriend = {};
+// //恋人との好感度
+// var friendly = {};
+// //バイトの有無
+// var job = {};
 
 //順位表示用のデータを入れ替える連想配列(連想配列じゃなくても可)
 var ranking = ["Name1", "Name2", "Name3", "Name4"];
@@ -190,14 +190,21 @@ function partjob(name) {
     playersBox[playernumber]["apply"] += jobkind[playersBox[playernumber]["job"]] * 3 * 12
 }
 
-//交際or破局のメソッド(引数:プレイヤー名)
+//交際or破局のメソッド(引数:プレイヤー名)(戻り値：イベントテキスト)
 function chance(name) {
+    var Text = "";
     if (playersBox[playernumber]["girlfriend"] == "なし") {
         playersBox[playernumber]["girlfriend"] = "あり";
+        Text = "恋人ができた。\n交際：あり"
     } else if (playersBox[playernumber]["friendly"] <= 2) {
         playersBox[playernumber]["girlfriend"] = "なし";
         playersBox[playernumber]["friendly"] = 0;
+        Text = "恋人に振られた。\n交際：なし"
+    }else{
+        Text = "恋人とは上手くいっている。\n交際：あり"
     }
+    return Text;
+
 }
 
 //デート用のメソッド(引数:変化する金額 ,プレイヤー名 , 好感度変化)    ***要調整***
@@ -213,7 +220,7 @@ function credite(name, unit) {
 
 //資格取得イベント用のメソッド(引数:プレイヤー名)   ***要調整***
 function getachieve(name) {
-    var Text = "今日は資格取得の日。";
+    var Text = "今日は資格取得の日。\n";
     //受験料
     const COST = 7500;
     //資格のボーダーライン(基本情報:FE , 応用情報:AP)
@@ -225,29 +232,29 @@ function getachieve(name) {
 
     if (playersBox[playernumber]["achievement"] == "応情") {
         //資格が既に応情だった場合
-        Text += "周りの学生たちも頑張って資格勉強に勤しんでいる。";
+        Text += "周りの学生たちも頑張って、\n資格勉強に勤しんでいる。";
 
     } else if (playersBox[playernumber]["credit"] >= AP && playersBox[playernumber]["apply"] >= COST) {
         //応情の合格条件を満たしている場合
         playersBox[playernumber]["achievement"] = "応情";
         playersBox[playernumber]["apply"] += APGET - COST;
-        Text += "応用情報技術者試験に見事合格した！奨励金として" + (APGET - COST) + "円手に入れた。資格が『 応情 』になった。";
+        Text += "応用情報技術者試験に見事合格した！\n奨励金として" + (APGET - COST) + "円手に入れた。\n資格が『 応情 』になった。";
 
     } else if (playersBox[playernumber]["achievement"] == "基情") {
         //資格が基情であり、応情の合格条件を満たしていない場合
         playersBox[playernumber]["apply"] -= COST;
-        Text += "応用情報技術者試験を受けたが、実力が足らず不合格だった。" + COST + "円失った。";
+        Text += "応用情報技術者試験を受けたが、\n実力が足らず不合格だった。\n" + COST + "円失った。";
 
     } else if (playersBox[playernumber]["credit"] >= FE && playersBox[playernumber]["apply"] >= COST) {
         //基情の合格条件を満たしている場合
         playersBox[playernumber]["achievement"] = "基情";
         playersBox[playernumber]["apply"] += FEGET - COST;
-        Text += "基本情報技術者試験に見事合格した！奨励金として" + (FEGET - COST) + "円手に入れた。資格が『 基情 』になった。";
+        Text += "基本情報技術者試験に見事合格した！\n奨励金として" + (FEGET - COST) + "円手に入れた。\n資格が『 基情 』になった。";
 
     } else {
         //資格がなく、基情の合格条件を満たしていない場合
         playersBox[playernumber]["apply"] -= COST;
-        Text += "基本情報技術者試験を受けたが、実力が足らず不合格だった。" + COST + "円失った。";
+        Text += "基本情報技術者試験を受けたが、\n実力が足らず不合格だった。\n" + COST + "円失った。";
 
     }
 
@@ -264,6 +271,8 @@ function offered(name, ran, achieve) {
     }
 
     playersBox[playernumber]["offer"] = company[achieverank[achieve] + ran];
+
+    return playersBox[playernumber]["offer"];
 
 }
 

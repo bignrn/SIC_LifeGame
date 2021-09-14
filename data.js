@@ -2,7 +2,7 @@
 //プレイヤー名
 var names = { 0: "Name1", 1: "Name2", 2: "Name3", 3: "Name4" };
 //所持金
-var applys = {};
+var applys = new Object();
 //所持単位数
 var credit = {};
 //所持資格
@@ -24,26 +24,65 @@ var offer_rank = { "未定": 0, "小企業": 1, "中企業": 2, "大企業": 3 }
 var jobkind = { "飲食": 800, "デスクワーク": 900, "配達": 900, "工場": 850, "コンビニ": 750 };
 //資格ランクの連想配列
 var achieverank = { "なし": 0, "基情": 1, "応情": 2, "高度": 3 };
+//プレイヤーごとの所持データの格納先
+var playersBox;
+
+//プレイヤー番号（仮置き)
+var playernumber = 0;
 
 //プレイヤー名をキーとした連想配列の設定(ファンクションにしなくても可)
 function defaultset() {
-    for (var i = 0; i < names.length; i++) {
-        applys.names[i] = 0;
-        achievement.names[i] = "なし";
-        offer.names[i] = "未定";
-        girlfriend.names[i] = "なし";
-        friendly.names[i] = 0;
-        credit.names[i] = 0;
-        job.names[i] = "なし";
+    playersBox = {
+        0:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        1:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        2:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
+        3:{
+            "name":"",
+            "apply":0,
+            "achievement":"なし",
+            "offer": "なし",
+            "girlfriend": "なし",
+            "friendly": 0,
+            "credit": 0,
+            "job": "なし",
+        },
     }
 }
-
+/*未実装
 //プレイヤー名を設定するメソッド(引数:name  プレイヤー名)
 function nameset(name) {
     names.push(name);
 }
+*/
 
-
+/*未実装
 //所持金別の順位ソート(戻り値：所持金別順位の配列)
 function apply_sort() {
     for (var i = 0; i < applys.length; i++) {
@@ -89,33 +128,34 @@ function credit_sort() {
     return ranking;
 }
 
+*/
 //所持金変化用のメソッド(引数:変化する金額 , プレイヤー名)
 function addmoney(money, name) {
-    applys[name] += money;
+    playersBox[playernumber]["apply"] += money;
 }
 
 //好感度変化用のメソッド(引数:プレイヤー名 , 好感度変化)  ***要調整***
 function addfriendly(name, add) {
-    friendly[name] += add;
+    playersBox[playernumber]["friendly"] += add;
 }
 
 //バイト先が倒産した場合のメソッド(引数:プレイヤー名)
 function breaking(name) {
-    job[name] = "なし";
+    playersBox[playernumber]["job"] = "なし";
 }
 
 //バイト代取得用メソッド(引数:プレイヤー名)   ***要調整***
 function partjob(name) {
-    applys[name] += jobkind[job[name]] * 3 * 12
+    playersBox[playernumber]["apply"] += jobkind[playersBox[playernumber]["job"]] * 3 * 12
 }
 
 //交際or破局のメソッド(引数:プレイヤー名)
 function chance(name) {
-    if (girlfriend[name] == "なし") {
-        girlfriend[name] = "あり";
-    } else if (friendly[name] <= 2) {
-        girlfriend[name] = "なし";
-        friendly[name] = 0;
+    if (playersBox[playernumber]["girlfriend"] == "なし") {
+        playersBox[playernumber]["girlfriend"] = "あり";
+    } else if (playersBox[playernumber]["friendly"] <= 2) {
+        playersBox[playernumber]["girlfriend"] = "なし";
+        playersBox[playernumber]["friendly"] = 0;
     }
 }
 
@@ -127,11 +167,12 @@ function date(money, name, add) {
 
 //単位獲得イベント用のメソッド(引数:プレイヤー名 , 単位数)
 function credite(name, unit) {
-    credit[name] += unit;
+    playersBox[playernumber]["credit"] += unit;
 }
 
 //資格取得イベント用のメソッド(引数:プレイヤー名)   ***要調整***
 function getachieve(name) {
+    var Text = "今日は資格取得の日。";
     //受験料
     const COST = 7500;
     //資格のボーダーライン(基本情報:FE , 応用情報:AP)
@@ -140,18 +181,40 @@ function getachieve(name) {
     //合格報酬(一回のみ)
     const FEGET = 20000;
     const APGET = 40000;
-    if (credit[name] >= AP && applys[name] >= COST && achievement[name] != "応情") {
-        achievement[name] = "応情";
-        applys[name] += APGET;
-    } else if (credit[name] >= FE && applys[name] >= COST && achievement[name] != "応情") {
-        if (achievement[name] != "基情") applys[name] += FEGET;
-        achievement[name] = "基情";
+
+    if (playersBox[playernumber]["achievement"] == "応情") {
+        //資格が既に応情だった場合
+        Text += "周りの学生たちも頑張って資格勉強に勤しんでいる。";
+
+    } else if (playersBox[playernumber]["credit"] >= AP && playersBox[playernumber]["apply"] >= COST) {
+        //応情の合格条件を満たしている場合
+        playersBox[playernumber]["achievement"] = "応情";
+        playersBox[playernumber]["apply"] += APGET - COST;
+        Text += "応用情報技術者試験に見事合格した！奨励金として" + (APGET - COST) + "円手に入れた。資格が『 応情 』になった。";
+
+    } else if (playersBox[playernumber]["achievement"] == "基情") {
+        //資格が基情であり、応情の合格条件を満たしていない場合
+        playersBox[playernumber]["apply"] -= COST;
+        Text += "応用情報技術者試験を受けたが、実力が足らず不合格だった。" + COST + "円失った。";
+
+    } else if (playersBox[playernumber]["credit"] >= FE && playersBox[playernumber]["apply"] >= COST) {
+        //基情の合格条件を満たしている場合
+        playersBox[playernumber]["achievement"] = "基情";
+        playersBox[playernumber]["apply"] += FEGET - COST;
+        Text += "基本情報技術者試験に見事合格した！奨励金として" + (FEGET - COST) + "円手に入れた。資格が『 基情 』になった。";
+
+    } else {
+        //資格がなく、基情の合格条件を満たしていない場合
+        playersBox[playernumber]["apply"] -= COST;
+        Text += "基本情報技術者試験を受けたが、実力が足らず不合格だった。" + COST + "円失った。";
+
     }
-    applys[name] -= COST;
+
+    return Text;
 }
 
-//就職内定イベント用のメソッド(引数:プレイヤー名 , 0-9乱数)
-function offered(name, ran) {
+//就職内定イベント用のメソッド(引数:プレイヤー名 , 0-9乱数 , 資格("なし" , "基情" , "応情" , "高度"))
+function offered(name, ran, achieve) {
     company = ["未定", "小企業", "中企業", "大企業"];
     if (ran > 2) {
         ran = 1;
@@ -159,31 +222,31 @@ function offered(name, ran) {
         ran = 0;
     }
 
-    offer[name] = company[achieverank[name] + ran];
+    playersBox[playernumber]["offer"] = company[achieverank[achieve] + ran];
 
 }
 
 //就職内定取り消しイベント用のメソッド(引数:プレイヤー名 , 0-5乱数)
 function missoffer(name, ran) {
     if (ran < 4) {
-        offer[name] = "未定";
+        playersBox[playernumber]["offer"] = "未定";
     }
 }
 
 //地球祭イベント用のメソッド(引数:プレイヤー名 , 0-1乱数)
 function festa(name, ran) {
     switch (ran) {
-        case 0: applys[name] += -1000;
+        case 0: playersBox[playernumber]["apply"] += -1000;
             break;
-        case 1: applys[name] += 1000;
+        case 1: playersBox[playernumber]["apply"] += 1000;
             break;
     }
 
-    if (girlfriend[name] == "あり") {
+    if (playersBox[playernumber]["girlfriend"] == "あり") {
         switch (ran) {
-            case 0: friendly[name] += 1;
+            case 0: playersBox[playernumber]["friendly"] += 1;
                 break;
-            case 1: friendly[name] += 3;
+            case 1: playersBox[playernumber]["friendly"] += 3;
                 break;
         }
 
@@ -194,17 +257,17 @@ function festa(name, ran) {
 function sport(name, ran) {
 
     switch (ran) {
-        case 0: applys[name] += -1000;
+        case 0: playersBox[playernumber]["apply"] += -1000;
             break;
-        case 1: credit[name] += 2;
+        case 1: playersBox[playernumber]["credit"] += 2;
             break;
     }
 
-    if (girlfriend[name] == "あり") {
+    if (playersBox[playernumber]["girlfriend"] == "あり") {
         switch (ran) {
-            case 0: friendly[name] += -1;
+            case 0: playersBox[playernumber]["friendly"] += -1;
                 break;
-            case 1: friendly[name] += 1;
+            case 1: playersBox[playernumber]["friendly"] += 1;
                 break;
         }
         return 1;

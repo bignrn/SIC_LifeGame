@@ -203,33 +203,54 @@ var eventArray = {
 //単位取得マスのイベント(引数:プレイヤー名)(data.jsのファンクションを呼出し)
 function getcredit(name) {
     credite(name, 2);
+
+    return "単位を2獲得した。";
 }
 
-/*遅刻、欠席での単位喪失マスのイベント(引数:プレイヤー名 , 遅刻or欠席)(data.jsのファンクションを呼出し)
+/*遅刻、欠席での単位喪失マスのイベント(引数:プレイヤー名 , 遅刻or欠席)(data.jsのファンクションを呼出し)(戻り値：テキスト)
 ***要調整***
 */
 function failed(name, flag) {
-    if (flag == "遅刻") lateday++;
-    if (flag == "欠席") credit(name, -2);
-    else if (lateday == 3) {
+    var Text = "";
+    if (flag == "遅刻") {
+        lateday++;
+        Text = "授業に遅刻をしてしまった。";
+    }
+
+    if (flag == "欠席") {
+        credit(name, -2);
+
+        Text = "授業を欠席してしまった。単位を2失った。"
+    } else if (lateday == 3) {
         credit(name, -2);
         lateday = 0;
+
+        Text += "遅刻が3回になったので単位を2失った。";
     }
+
+    return Text;
 }
 
-//バイト代取得マスのイベント
+//バイト代取得マスのイベント(引数：プレイヤー名)(戻り値：テキスト)
 function salary(name) {
-    partjob(name);
+    var num = partjob(name);
+    var Text = "今日はバイトの給料日。";
+
+    Text += num + "円手に入れた。";
+
+    return Text;
 }
 
-//バイト先が無くなるマスのイベント
+//バイト先が無くなるマスのイベント(戻り値：テキスト)
 function breakdown(name) {
     breaking(name);
+
+    return "バイト先が無くなってしまった。";
 }
 
-//資格取得チャレンジ(確定)(引数:プレイヤー名)
+//資格取得チャレンジ(確定)(引数:プレイヤー名)(戻り値：テキスト)
 function chanceAchieve(name) {
-    getachieve(name);
+    return getachieve(name);
 }
 
 //交際、破局マスのイベント(引数:プレイヤー名)

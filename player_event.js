@@ -1,7 +1,7 @@
 /*
 ここにはボタン処理を記述
 
-date:2021.09.08
+date:2021.09.13
 ver:a0_event
  */
 //変数・定数
@@ -14,19 +14,20 @@ const KUP    = 38;   //キーボード番号設定
 const KRIGHT = 39;   //キーボード番号設定
 const KDOWN  = 40;   //キーボード番号設定
 
-let e_flg       = false;            //キーボード用
-let e_memory    = e_flg;            //押されたか記憶する
-let e_keyNum    = -1;               //押されたキーボード番号を取得
-let e_gameWatch = true;             //スタート画面を消す
+let e_sw_flg    = false;    //ON/OFFを切り替える
+let e_event_flg = false;    //イベントが呼ばれたかを確認
+let e_swMemory  = e_sw_flg; //押されたか記憶する
+let e_keyNum    = -1;       //押されたキーボード番号を取得
+let e_gameWatch = true;     //スタート画面を消す
+let e_btn_index = 0;        //ボタンの移動
+
+
 /**
  * ボタンを描画する
  * @param g getContext 描画するためのインスタンス(main)
  * @returns {number}
  */
 function playerEventMain(g) {
-    // console.log("player_event playerEventMain(g)");
-    console.log("gameWatch="+e_gameWatch)
-
     g.font = EVENT_FONT;
     g.fillText("HELP:キーボード[H]", 2, 142);
 
@@ -39,59 +40,77 @@ function playerEventMain(g) {
     //スタート画面を消す
     if (e_gameWatch){
         startWind(g);
-        return;
-    }else if(e_memory && (e_keyNum==KSPACE || e_keyNum==KENTER)){
-        delTextWind(g);
+        return;         //強制的にbreakさせている。
     }
     //ヘルプボタンが押された時に
-    if (e_flg && e_keyNum==KH){
-        helpWindMain(g);
-    }else if(e_memory && e_keyNum==KH){
-        delTextWind(g);
+    if (e_sw_flg){
+        helpWindMain(g);//ヘルプ画面が表示される
+    }
+    //イベント発生時にボタンで消す処理
+    if(e_event_flg){
+        textWindMain(g,"交際","namae2","彼女と別れた。\n改行。改行",1000);
     }
 }
 /**
  * ヘルプボタン処理
+ * 押されていたら      :flase
+ * 押されていないなら   :true
  * @constructor
  */
-function HelpKeyFun(){
-    if(e_flg){
-        e_flg = false;
+function HelpKeySwFun(){
+    if(e_sw_flg){
+        e_sw_flg = false;
     }else{
-        e_flg = true;
+        e_sw_flg = true;
+    }
+}
+
+/**
+ * ゲームがスタートしたか判定する
+ */
+function gameWatch(){
+    if (e_gameWatch){
+        NonePlayers();
     }
 }
 /**
  * キーイベント
  */
 window.onkeydown = function (e) {
+    const KH     = 72;   //キーボード番号設定
+    const KENTER = 13;   //キーボード番号設定
     let c = e.keyCode;//キーコード取得
 
-    if (c == KLEFT) { console.log("左") }   //左
+    if (c == KLEFT && e_btn_index>0) {
+        console.log("左");
+        e_btn_index--;
+    }                                       //左
     if (c == KUP) { console.log("上") }     //上
-    if (c == KRIGHT) { console.log("右") }  //右
+    if (c == KRIGHT && e_btn_index<1) {
+        console.log("右");
+        e_btn_index++;
+    }                                       //右
     if (c == KDOWN) { console.log("下") }   //下
-    if (!e_gameWatch && c == KH) {          //bugの阻止のためにゲームが始まってから使える様に設定
+    //bugの阻止のため。ゲームが始まってから使える様に設定。かつ、イベント発生時も起動しない。
+    if (!e_gameWatch && c == KH  && !e_event_flg) {
         console.log("H");
-        HelpKeyFun();
-        e_memory=e_flg;
+        HelpKeySwFun();
         e_keyNum=KH;
     }                                       //H
     if (c == KENTER) {
         console.log("ENTER");
-        if (e_gameWatch){
-            e_gameWatch = false;
-        }
+        gameWatch();
+        e_event_flg = false;    //イベント処理
         e_keyNum=KENTER;
     }                                       //ENTER
     if (c == KSPACE) {
         console.log("SPACE");
-        if (e_gameWatch){
-            e_gameWatch = false;
-        }
+        gameWatch();
         e_keyNum=KSPACE;
     }                                       //SPACE
+
     console.log("★押されたキーボード番号："+c)
+    console.log("btn："+e_btn_index)
 }
 
 /*
@@ -103,6 +122,77 @@ var lateday = {};
 for (var i = 0; i < names.length; i++) {
     lateday.names[i] = 0;
 }
+
+
+var eventArray = {
+    p1:{
+        0:announce(),//中間発表イベント
+        48:fes(p1),//地球祭イベント
+        49:chanceAchieve(p1),//資格取得イベント
+        50:getoffer(p1),//内定取得イベント
+        51:lostoffer(p1),//内定喪失イベント
+        52:sports(p1),//球技大会イベント
+        53:makechance(p1),//交際破局イベント
+        54:datetime(p1),//デートイベント
+        55:salary(p1),//バイト代取得イベント
+        56:breakdown(p1),//バイト先消滅イベント
+        57:failed(p1,flag),//単位喪失イベント
+        58:getcredit(p1),//単位取得イベント
+        59:waste(p1),//お金浪費イベント
+        63:waste(p1),//お金浪費イベント
+    },
+    
+    p2:{ 
+        0:announce(),//中間発表イベント
+        48:fes(p2),//地球祭イベント
+        49:chanceAchieve(p2),//資格取得イベント
+        50:getoffer(p2),//内定取得イベント
+        51:lostoffer(p2),//内定喪失イベント
+        52:sports(p2),//球技大会イベント
+        53:makechance(p2),//交際破局イベント
+        54:datetime(p2),//デートイベント
+        55:salary(p2),//バイト代取得イベント
+        56:breakdown(p2),//バイト先消滅イベント
+        57:failed(p2,flag),//単位喪失イベント
+        58:getcredit(p2),//単位取得イベント
+        59:waste(p2),//お金浪費イベント
+        63:waste(p2),//お金浪費イベント
+    },
+    
+    p3:{ 
+        0:announce(),//中間発表イベント
+        48:fes(p3),//地球祭イベント
+        49:chanceAchieve(p3),//資格取得イベント
+        50:getoffer(p3),//内定取得イベント
+        51:lostoffer(p3),//内定喪失イベント
+        52:sports(p3),//球技大会イベント
+        53:makechance(p3),//交際破局イベント
+        54:datetime(p3),//デートイベント
+        55:salary(p3),//バイト代取得イベント
+        56:breakdown(p3),//バイト先消滅イベント
+        57:failed(p3,flag),//単位喪失イベント
+        58:getcredit(p3),//単位取得イベント
+        59:waste(p3),//お金浪費イベント
+        63:waste(p3),//お金浪費イベント
+    },
+    
+    p4:{ 
+        0:announce(),//中間発表イベント
+        48:fes(p4),//地球祭イベント
+        49:chanceAchieve(p4),//資格取得イベント
+        50:getoffer(p4),//内定取得イベント
+        51:lostoffer(p4),//内定喪失イベント
+        52:sports(p4),//球技大会イベント
+        53:makechance(p4),//交際破局イベント
+        54:datetime(p4),//デートイベント
+        55:salary(p4),//バイト代取得イベント
+        56:breakdown(p4),//バイト先消滅イベント
+        57:failed(p4,flag),//単位喪失イベント
+        58:getcredit(p4),//単位取得イベント
+        59:waste(p4),//お金浪費イベント
+        63:waste(p4),//お金浪費イベント
+    },
+};
 
 /*
 
@@ -241,9 +331,48 @@ function sports(name) {
 //中間発表用のメソッド
 function announce() {
     //所持金順位の配列
-    var apply_rank = apply_sort();
+    // var apply_rank = apply_sort();
     //内定順位の配列
-    var offer_rank = offer_sort();
+    // var offer_rank = offer_sort();
     //単位順位の配列
-    var credit_rank = credit_sort();
+    // var credit_rank = credit_sort();
+}
+
+
+//お金浪費マスのイベント
+function waste(name){
+    //どのイベントが起きるかを決める乱数の生成
+    var ran = Math.random(18);
+    //イベントの浪費金額
+    var wasteMoney = [
+        -700 , -5000 , -8000 , -300 , -1000 , -2600 , -1500 , -4000 , -7000 ,
+        -1500 , -5000 , -10000 , -500 , -1500 , -2500 , -100 , -200 , -500
+    ];
+    //イベントの内容
+    var EVENT = [
+        "友達と食事に行くことになった。：","今日は友達の誕生日、いつもお礼を込めてプレゼントを購入。：","友達と洋服を買いに行くことになった。：",
+        "学校帰りに本屋に立ち寄った所、好きな漫画の最新刊を発見。：","学校帰りに本屋に立ち寄った所、好きな作家の新作小説を発見。：","学校帰りに本屋に立ち寄った所、欲しい参考書を発見。：",
+        "一人でカラオケに行った。日頃の鬱憤を払うことができた。：","一人で家電量販店に行った。欲しかったデジタル雑貨を衝動買い。：","一人でキャンプに行った。のんびりとしたひとときを過ごした。：",
+        "スマホゲームに課金した。すぐに目当てのものが出たので少なくて済んだ。：","スマホゲームに課金した。目当てのものが出ずに、設定額に届いてあきらめた……。：","スマホゲームに課金した。目当てのものが出るまで課金したので、高くついた……。：",
+        "友人と遊ぶために新作ゲームを出し合って購入。：","友人と遊ぶために新作ゲームを購入。：","友人と遊ぶために新作ゲームの機材を購入。：",
+        "ジュースを買おうと自販機の前へ。お気に入りのジュースを購入。：","ジュースを買おうと自販機の前へ。初めて見るジュースに惹かれて購入。：","ジュースを買おうと自販機の前へ。しかし、不運な事に自販機の下にお金を落としてしまった。："
+    ];
+    //イベントの影響の反映用ファンクション(引数：消費金額 , プレイヤー名)
+    addmoney(wasteMoney[ran], name);
+    //ファンクションが返すテキストの生成
+    var Text = EVENT[ran] + wasteMoney[ran] + "円の消費。";
+    //親に借金をするかどうかの判定
+    if(playersBox[playernumber]["apply"] < 0){
+        Text += "<br>所持金がなくなってしまった！仕方なく親にお金を借りた事になった。";
+    }
+    //現在の所持金を明示するための追加
+    Text += "<br>所持金：" + playersBox[playernumber]["apply"] + "円";
+
+    return Text;
+    
+/*年1回のイベント(未実装)
+　＞今日は私の誕生日、自分あてに腕時計を購入。：20,000円の消費
+　＞今日は「母の日」、日ごろの感謝を込めてプレゼントを購入。10,000円の消費
+　＞今日は「父の日」、日ごろの感謝を込めてプレゼントを購入。10,000円の消費
+*/
 }

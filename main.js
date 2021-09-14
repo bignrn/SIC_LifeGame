@@ -1,7 +1,7 @@
 /*
 TEST RUN
 
-date:2021.09.08
+date:2021.09.13
 ver:a0
 ==================
 *Image File size*
@@ -18,6 +18,8 @@ https://www.ipentec.com/document/javascript-link-js-file-to-js-file
 https://youtube.com/playlist?list=PLJ86MSrhnFKVcfaffKPYkvfkPg4qRsijs
 
  */
+//他のファイルからの呼び出し】マップタイル情報
+document.write("<script src='data.js'></script>");//JSファイルの読み込み
 //他のファイルからの呼び出し】テキストウィンドウ
 document.write("<script src='textWind.js'></script>");//JSファイルの読み込み
 //【他のファイルからの呼び出し】プレイヤー情報表示画面
@@ -44,9 +46,9 @@ let gImageMap;
 var Map = function (){getMapData()};  //マップタイルの要素番号を取得(←map.js)
 var Starts; //プレイヤー駒の初期位置
 var FirstTile;
-var players = 4; //プレイヤー人数
-var titleflag = true;   //人数選択したか判断する用
-var turn_player = 0;
+let players = 4; //プレイヤー人数
+let titleflag = true;   //人数選択したか判断する用
+let turn_player = 0;
 
 /**
  * タイマーイベント
@@ -67,8 +69,8 @@ function Timer(){
     const g = Screen.getContext("2d");
 
     //画像生成
-    for (let y = 0;y < Map.length;y++){
-        for (let x = 0;x < Map[y].length;x++){
+    for (var y = 0;y < Map.length;y++){
+        for (var x = 0;x < Map[y].length;x++){
             const idx = Map[y][x];
             DrawTile(g, idx, x * TILESIZE, y * TILESIZE);       //マップを描画するファンクションを呼出
             if(idx == 37 && titleflag)
@@ -86,12 +88,16 @@ function Timer(){
     g.fillText("HelloWorld" + gCount, 0, 120);
     g.fillText("順番：a,b,c,d", 40, 8);
 
-    //****Norarun の仕業↓
+    //****Norarun の作業↓
     //【他のファイルからの呼び出し】
     playerInfoMain();   //playerInfoのfunctionを呼び出し
     playerEventMain(g); //player_eventのfunctionを呼び出し
-    // textWindMain(g,"交際","namae2","彼女と別れた。");
+    // if(gCount == 15){    //イベントデバック
+    //     e_event_flg = true;
+    // }
     //****Norarun の仕業↑
+    // textWindMain(g);
+    //****Norarun の作業↑
     g2.drawImage(Screen,0,0,Screen.width,Screen.height,0,0,Screen.width * 4,Screen.height * 4);
 }
 
@@ -131,7 +137,8 @@ function SetFirstPosition(x, y) {
  * @constructor
  */
 function DrawPlayers(g){
-    for (var i = 0; i < players; i++){
+    for (var i = 0; i < players; i++){  //変更箇所。マップ上に表示する人数をラジオボタンから取得した数値に変更
+
         DrawTile(g, 8 + i, Starts[i][0], Starts[i][1]);
     }
 }
@@ -163,9 +170,9 @@ function DrawTile(g, idx, x, y) {
  * @constructor
  */
 function GetPlayers(){
-    var elements = document.getElementsByName('players');
-    var len = elements.length;
-    var checkValue = '';
+    let elements = document.getElementsByName('players');
+    let len = elements.length;
+    let checkValue = '';
 
     for (var i = 0; i < len; i++){
         if (elements.item(i).checked){
@@ -183,6 +190,9 @@ function NonePlayers(){
     const element = document.getElementById('playing');
     element.style.display = "none";
     titleflag = false;
+
+    e_gameWatch = false;    //スタート画面を消すため
+
     setMapData(Map);
     setPosition(Starts, FirstTile, TILESIZE);
 }
@@ -193,12 +203,9 @@ function GetMove() {
     var np = turn_player % players;
     console.log(np);
     Starts[0] = move(0, moving);
-    var longitude = Starts[0][0] / 8;
-    var latitude = Starts[0][1] / 8;
-    console.log(Map[latitude][longitude]);
     turn_player++;
 
-    var content = document.getElementById('dice_number');
+    let content = document.getElementById('dice_number');
     content.innerHTML = moving;
 }
 

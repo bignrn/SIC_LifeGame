@@ -50,7 +50,7 @@ function playerEventMain(g) {
     }
     //イベント発生時にボタンで消す処理
     if(e_event_flg){
-     eventTextDraw(g,"プレイヤーナンバー:"+e_pNum+"\nイベント番号:"+e_eNum);
+     eventTextDraw(g,eventArray[e_pNum][e_eNum]);
     }
     console.log("Event_idx:"+idx);
 }
@@ -60,9 +60,9 @@ function playerEventMain(g) {
  * @param eNum　イベント番号
  */
 function getPlayerNum(pNum,eNum){
-  e_event_flg = true;
-  e_eNum = eNum;
-  e_pNum = pNum;
+  e_event_flg = true; //イベント画面のフラグ
+  e_eNum = eNum;      //イベント番号をグローバル変数に格納
+  e_pNum = pNum;      //プレイヤー番号をグローバル変数に格納
 }
 /**
  * ヘルプボタン処理
@@ -84,7 +84,7 @@ function HelpKeySwFun(){
 function gameWatch(){
     if (e_gameWatch){
         NonePlayers();
-    }else if(!e_event_flg){
+    }else if(!e_event_flg && !e_sw_flg){
         GetMove();
     }
 }

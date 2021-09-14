@@ -81,7 +81,10 @@ function helpWindMain(g){
     SettingHelp_setting(g,"ヘルプ画面");
 
     g.fillText("・キーボード操作",40, 53);
-    g.fillText("・情報の見方：",40, 63);
+    g.fillText("　〇サイコロを振る:スぺース又はエンター",40, 63);
+    g.fillText("　〇決定ボタン：スぺース又はエンター",40, 73);
+    g.fillText("　〇ページをめくる：矢印キー(←↑→↓)",40, 83);
+    // g.fillText("・情報の見方：",40, 63);
 }
 
 /**
@@ -120,10 +123,11 @@ function SettingHelp_setting(g,bigTitle){
     const BORDER    = 2;    //枠の幅
 
     //ウィンドウ
+    var ADD = 20;
     g.fillStyle = "black";  //枠線の色
-    g.fillRect(35,33,WTWIDHT + 50,WTHEIGHT + 50);
+    g.fillRect(35,33,WTWIDHT + ADD-20,WTHEIGHT + ADD);
     g.fillStyle = "white";  //背景の色
-    g.fillRect(36,34,WTWIDHT + 50 - BORDER ,WTHEIGHT + 50 - BORDER);
+    g.fillRect(36,34,WTWIDHT + ADD-20 - BORDER ,WTHEIGHT + ADD - BORDER);
     g.fillStyle = "black";  //枠線の色
 
     //タイトルテキスト

@@ -271,9 +271,10 @@ function chanceAchieve(name) {
     return getachieve(name);
 }
 
-//交際、破局マスのイベント(引数:プレイヤー名)
+//交際、破局マスのイベント(引数:プレイヤー名)(戻り値：イベントテキスト)
 function makechance(name) {
-    chance(name);
+    return chance(name);
+    
 }
 
 //デートマスのイベント(引数:プレイヤー名  戻り値：イベントテキスト)
@@ -309,16 +310,21 @@ function making(name) {
 
 }
 
-//就職（内定）マスのイベント(引数:プレイヤー名)
+//就職（内定）マスのイベント(引数:プレイヤー名)(戻り値：イベントテキスト)
 function getoffer(name) {
     //70%で内定取得するための乱数
     var n = Math.floor(Math.random() * 10);
 
-    offered(name, n);
+    var posittion = offered(name, n , playersBox[playernumber]["achievement"]);
 
+    if(positton != "なし"){
+        return "内定を獲得した。\n内定：" + positton;
+    }else{
+        return "お祈りメールをもらった。\n内定：なし"; 
+    }
 }
 
-//内定取り消しマスのイベント(引数:プレイヤー名)
+//内定取り消しマスのイベント(引数:プレイヤー名)(戻り値：イベントテキスト)
 function lostoffer(name) {
     var ran = Math.floor(Math.random() * 6);
     var text = "就職前にやらかしてしまった。\n";
@@ -330,9 +336,10 @@ function lostoffer(name) {
     } else {
         text += EVENT[1];
     }
+    return text;
 }
 
-//地球祭マスのイベント(引数:プレイヤー名)
+//地球祭マスのイベント(引数:プレイヤー名)(戻り値：イベントテキスト)
 function fes(name) {
     var ran = Math.floor(Math.random() * 2);
     var text = "お祭りだ！\n";
@@ -349,7 +356,7 @@ function fes(name) {
     return text;
 }
 
-//球技大会マスのイベント
+//球技大会マスのイベント(引数：プレイヤー名)(戻り値：イベントテキスト)
 function sports(name) {
     var ran = Math.floor(Math.random() * 2);
     const EVENT = ["しかし、試合中にケガをしてしまった。\n", "みんなと協力したおかげで優勝！！\n運動不足も解消！\n",
@@ -379,7 +386,7 @@ function announce() {
 }
 
 
-//お金浪費マスのイベント
+//お金浪費マスのイベント(引数：プレイヤー名)(戻り値：イベントテキスト)
 function waste(name){
     //どのイベントが起きるかを決める乱数の生成
     var ran = Math.floor(Math.random() * 18);

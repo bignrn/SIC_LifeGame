@@ -46,9 +46,9 @@ let gImageMap;
 var Map = function (){getMapData()};  //マップタイルの要素番号を取得(←map.js)
 var Starts; //プレイヤー駒の初期位置
 var FirstTile;
-let players = 4; //プレイヤー人数
-let titleflag = true;   //人数選択したか判断する用
-let turn_player = 0;
+var players = 4; //プレイヤー人数
+var titleflag = true;   //人数選択したか判断する用
+var turn_player = 0;
 
 /**
  * タイマーイベント
@@ -170,9 +170,9 @@ function DrawTile(g, idx, x, y) {
  * @constructor
  */
 function GetPlayers(){
-    let elements = document.getElementsByName('players');
-    let len = elements.length;
-    let checkValue = '';
+    var elements = document.getElementsByName('players');
+    var len = elements.length;
+    var checkValue = '';
 
     for (var i = 0; i < len; i++){
         if (elements.item(i).checked){
@@ -203,9 +203,12 @@ function GetMove() {
     var np = turn_player % players;
     console.log(np);
     Starts[0] = move(0, moving);
+    var longitude = Starts[0][0] / 8;
+    var latitude = Starts[0][1] / 8;
+    console.log(Map[latitude][longitude]);
     turn_player++;
 
-    let content = document.getElementById('dice_number');
+    var content = document.getElementById('dice_number');
     content.innerHTML = moving;
 }
 

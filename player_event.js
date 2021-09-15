@@ -22,6 +22,7 @@ let e_btn_index = 0;        //ボタンの移動
 let e_max_page_length;
 var e_pNum; 　　　　　　　　　　//プレイヤーナンバー
 var e_eNum; 　　　　　　　　　　//イベント番号
+var etext;
 
 /**
  * ボタンを描画する
@@ -49,7 +50,7 @@ function playerEventMain(g) {
     }
     //イベント発生時にボタンで消す処理
     if(e_event_flg){
-     eventTextDraw(g,eventArray[e_pNum][e_eNum]);
+     eventTextDraw(g,etext);
     }
     //クリア画面。ブラウザの更新しない限り消えない
     if(g_end_flag){

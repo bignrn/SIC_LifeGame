@@ -221,6 +221,7 @@ function GetMove() {
         Starts[np] = gp;
         var longitude = Starts[np][0] / 8;
         var latitude = Starts[np][1] / 8;
+        etext = eventSwitch(np, Map[latitude][longitude]);
         getPlayerNum(np, Map[latitude][longitude]);
         turn_player++;
     }

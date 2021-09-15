@@ -59,9 +59,9 @@ function playerEventMain(g) {
  */
 function getPlayerNum(pNum,eNum){
     console.log("getPlayerNum("+pNum+","+eNum+")");
-  e_event_flg = true; //イベント画面のフラグ
-  e_eNum = eNum;      //イベント番号をグローバル変数に格納
-  e_pNum = pNum;      //プレイヤー番号をグローバル変数に格納
+    e_event_flg = true; //イベント画面のフラグ
+    e_eNum = eNum;      //イベント番号をグローバル変数に格納
+    e_pNum = pNum;      //プレイヤー番号をグローバル変数に格納
 }
 /**
  * ヘルプボタン処理

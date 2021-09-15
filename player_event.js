@@ -232,6 +232,7 @@ function getcredit(name) {
 function failed(name) {
     var flag = "";
     if(Math.floor(Math.random() * 10) < 3) flag = "欠席";
+    else flag = "遅刻";
     var Text = "";
     if (flag == "遅刻") {
         lateday++;

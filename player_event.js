@@ -236,6 +236,18 @@ function eventSwitch(name , eventValue){
         Text = ananounce();
         break;
 
+        case 37 : 
+        Text = firstgoal(name);//ゴール（仮配置),
+        break;
+        
+        case 38 : 
+        Text = firstgoal(name);//ゴール（仮配置),
+        break;
+        
+        case 41 : 
+        Text = firstgoal(name);//ゴール（仮配置),
+        break;
+
         case 42 : 
         Text = firstgoal(name);//ゴール（仮配置),
         break;

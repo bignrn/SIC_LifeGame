@@ -27,7 +27,7 @@ var achieverank = { "なし": 0, "基情": 1, "応情": 2, "高度": 3 };
 //プレイヤーごとの所持データの格納先
 var playersBox = {
         0:{
-            "name":"",
+            "name":"プレイヤー１",
             "apply":100000,
             "achievement":"なし",
             "offer": "未定",
@@ -39,7 +39,7 @@ var playersBox = {
             "lateday":0,
         },
         1:{
-            "name":"",
+            "name":"プレイヤー２",
             "apply":100000,
             "achievement":"なし",
             "offer": "未定",
@@ -51,7 +51,7 @@ var playersBox = {
             "lateday":0,
         },
         2:{
-            "name":"",
+            "name":"プレイヤー３",
             "apply":100000,
             "achievement":"なし",
             "offer": "未定",
@@ -63,7 +63,7 @@ var playersBox = {
             "lateday":0,
         },
         3:{
-            "name":"",
+            "name":"プレイヤー４",
             "apply":100000,
             "achievement":"なし",
             "offer": "未定",

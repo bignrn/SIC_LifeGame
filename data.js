@@ -69,7 +69,7 @@ var playersBox = {
     }
 
 //プレイヤー番号（仮置き)
-var playernumber = 0;
+//var playernumber = 0;
 
 //プレイヤー名をキーとした連想配列の設定(ファンクションにしなくても可)
 function defaultset() {
@@ -172,17 +172,17 @@ function credit_sort() {
 */
 //所持金変化用のメソッド(引数:変化する金額 , プレイヤー名)
 function addmoney(money, name) {
-    playersBox[playernumber]["apply"] += money;
+    playersBox[name]["apply"] += money;
 }
 
 //好感度変化用のメソッド(引数:プレイヤー名 , 好感度変化)  ***要調整***
 function addfriendly(name, add) {
-    playersBox[playernumber]["friendly"] += add;
+    playersBox[name]["friendly"] += add;
 }
 
 //バイト先が倒産した場合のメソッド(引数:プレイヤー名)
 function breaking(name) {
-    playersBox[playernumber]["job"] = "なし";
+    playersBox[name]["job"] = "なし";
 }
 
 //バイト先就職用のメソッド(引数プレイヤー名)  ***要調整***
@@ -190,24 +190,24 @@ function jobget(name){
     var ran = Math.floor(Math.random() * 5);
     var jobevent = ["飲食" , "デスクワーク" , "配達" , "工場" , "コンビニ"];
 
-    playersBox[playernumber]["job"] = jobevent[ran];
+    playersBox[name]["job"] = jobevent[ran];
 
 }
 
 //バイト代取得用メソッド(引数:プレイヤー名)   ***要調整***
 function partjob(name) {
-    playersBox[playernumber]["apply"] += jobkind[playersBox[playernumber]["job"]] * 3 * 12
+    playersBox[name]["apply"] += jobkind[playersBox[name]["job"]] * 3 * 12
 }
 
 //交際or破局のメソッド(引数:プレイヤー名)(戻り値：イベントテキスト)
 function chance(name) {
     var Text = "";
-    if (playersBox[playernumber]["girlfriend"] == "なし") {
-        playersBox[playernumber]["girlfriend"] = "あり";
+    if (playersBox[name]["girlfriend"] == "なし") {
+        playersBox[name]["girlfriend"] = "あり";
         Text = "恋人ができた。\n交際：あり"
-    } else if (playersBox[playernumber]["friendly"] <= 2) {
-        playersBox[playernumber]["girlfriend"] = "なし";
-        playersBox[playernumber]["friendly"] = 0;
+    } else if (playersBox[name]["friendly"] <= 2) {
+        playersBox[name]["girlfriend"] = "なし";
+        playersBox[name]["friendly"] = 0;
         Text = "恋人に振られた。\n交際：なし"
     }else{
         Text = "恋人とは上手くいっている。\n交際：あり"
@@ -224,7 +224,7 @@ function date(money, name, add) {
 
 //単位獲得イベント用のメソッド(引数:プレイヤー名 , 単位数)
 function credite(name, unit) {
-    playersBox[playernumber]["credit"] += unit;
+    playersBox[name]["credit"] += unit;
 }
 
 //資格取得イベント用のメソッド(引数:プレイヤー名)   ***要調整***
@@ -239,30 +239,30 @@ function getachieve(name) {
     const FEGET = 20000;
     const APGET = 40000;
 
-    if (playersBox[playernumber]["achievement"] == "応情") {
+    if (playersBox[name]["achievement"] == "応情") {
         //資格が既に応情だった場合
         Text += "周りの学生たちも頑張って、\n資格勉強に勤しんでいる。";
 
-    } else if (playersBox[playernumber]["credit"] >= AP && playersBox[playernumber]["apply"] >= COST) {
+    } else if (playersBox[name]["credit"] >= AP && playersBox[name]["apply"] >= COST) {
         //応情の合格条件を満たしている場合
-        playersBox[playernumber]["achievement"] = "応情";
-        playersBox[playernumber]["apply"] += APGET - COST;
+        playersBox[name]["achievement"] = "応情";
+        playersBox[name]["apply"] += APGET - COST;
         Text += "応用情報技術者試験に見事合格した！\n奨励金として" + (APGET - COST) + "円手に入れた。\n資格が『 応情 』になった。";
 
-    } else if (playersBox[playernumber]["achievement"] == "基情") {
+    } else if (playersBox[name]["achievement"] == "基情") {
         //資格が基情であり、応情の合格条件を満たしていない場合
-        playersBox[playernumber]["apply"] -= COST;
+        playersBox[name]["apply"] -= COST;
         Text += "応用情報技術者試験を受けたが、\n実力が足らず不合格だった。\n" + COST + "円失った。";
 
-    } else if (playersBox[playernumber]["credit"] >= FE && playersBox[playernumber]["apply"] >= COST) {
+    } else if (playersBox[name]["credit"] >= FE && playersBox[name]["apply"] >= COST) {
         //基情の合格条件を満たしている場合
-        playersBox[playernumber]["achievement"] = "基情";
-        playersBox[playernumber]["apply"] += FEGET - COST;
+        playersBox[name]["achievement"] = "基情";
+        playersBox[name]["apply"] += FEGET - COST;
         Text += "基本情報技術者試験に見事合格した！\n奨励金として" + (FEGET - COST) + "円手に入れた。\n資格が『 基情 』になった。";
 
     } else {
         //資格がなく、基情の合格条件を満たしていない場合
-        playersBox[playernumber]["apply"] -= COST;
+        playersBox[name]["apply"] -= COST;
         Text += "基本情報技術者試験を受けたが、\n実力が足らず不合格だった。\n" + COST + "円失った。";
 
     }
@@ -279,33 +279,33 @@ function offered(name, ran, achieve) {
         ran = 0;
     }
 
-    playersBox[playernumber]["offer"] = company[achieverank[achieve] + ran];
+    playersBox[name]["offer"] = company[achieverank[achieve] + ran];
 
-    return playersBox[playernumber]["offer"];
+    return playersBox[name]["offer"];
 
 }
 
 //就職内定取り消しイベント用のメソッド(引数:プレイヤー名 , 0-5乱数)
 function missoffer(name, ran) {
     if (ran < 4) {
-        playersBox[playernumber]["offer"] = "未定";
+        playersBox[name]["offer"] = "未定";
     }
 }
 
 //地球祭イベント用のメソッド(引数:プレイヤー名 , 0-1乱数)
 function festa(name, ran) {
     switch (ran) {
-        case 0: playersBox[playernumber]["apply"] += -1000;
+        case 0: playersBox[name]["apply"] += -1000;
             break;
-        case 1: playersBox[playernumber]["apply"] += 1000;
+        case 1: playersBox[name]["apply"] += 1000;
             break;
     }
 
-    if (playersBox[playernumber]["girlfriend"] == "あり") {
+    if (playersBox[name]["girlfriend"] == "あり") {
         switch (ran) {
-            case 0: playersBox[playernumber]["friendly"] += 1;
+            case 0: playersBox[name]["friendly"] += 1;
                 break;
-            case 1: playersBox[playernumber]["friendly"] += 3;
+            case 1: playersBox[name]["friendly"] += 3;
                 break;
         }
 
@@ -316,17 +316,17 @@ function festa(name, ran) {
 function sport(name, ran) {
 
     switch (ran) {
-        case 0: playersBox[playernumber]["apply"] += -1000;
+        case 0: playersBox[name]["apply"] += -1000;
             break;
-        case 1: playersBox[playernumber]["credit"] += 2;
+        case 1: playersBox[name]["credit"] += 2;
             break;
     }
 
-    if (playersBox[playernumber]["girlfriend"] == "あり") {
+    if (playersBox[name]["girlfriend"] == "あり") {
         switch (ran) {
-            case 0: playersBox[playernumber]["friendly"] += -1;
+            case 0: playersBox[name]["friendly"] += -1;
                 break;
-            case 1: playersBox[playernumber]["friendly"] += 1;
+            case 1: playersBox[name]["friendly"] += 1;
                 break;
         }
         return 1;

@@ -439,6 +439,9 @@ function waste(name){
 */
 }
 
-function firstgoal(){
+//一周してゴールに入った際のイベント
+function firstgoal(name){
+    playersBox[name]["round"]++;
+
     return "ゴール！";
 }

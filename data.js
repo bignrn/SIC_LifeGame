@@ -83,6 +83,7 @@ function defaultset() {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
+            "round":0,
         },
         1:{
             "name":"",
@@ -93,6 +94,7 @@ function defaultset() {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
+            "round":0,
         },
         2:{
             "name":"",
@@ -103,6 +105,7 @@ function defaultset() {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
+            "round":0,
         },
         3:{
             "name":"",
@@ -113,6 +116,7 @@ function defaultset() {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
+            "round":0,
         },
     }
 }

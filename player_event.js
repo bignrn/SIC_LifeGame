@@ -266,9 +266,9 @@ function salary(name) {
         Text = "今日はバイトの給料日。\n";
 
         Text += num + "円手に入れた。";
-    }else{
-        jobget();
-        Text = "仕事が" + playersBox[name]["job"] + "になった。";
+    // }else{
+    //     jobget();
+    //     Text = "仕事が" + playersBox[name]["job"] + "になった。";
 
     }
 

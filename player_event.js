@@ -255,10 +255,16 @@ function failed(name) {
 
 //バイト代取得マスのイベント(引数：プレイヤー名)(戻り値：テキスト)
 function salary(name) {
-    var num = partjob(name);
-    var Text = "今日はバイトの給料日。\n";
+    if(playersBox[playernumber]["job"] != "なし"){
+        var num = partjob(name);
+        var Text = "今日はバイトの給料日。\n";
 
-    Text += num + "円手に入れた。";
+        Text += num + "円手に入れた。";
+    }else{
+        jobget();
+        var Text = "仕事が" + playersBox[playernumber]["job"] + "になった。";
+
+    }
 
     return Text;
 }

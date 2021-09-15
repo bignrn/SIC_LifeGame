@@ -185,6 +185,15 @@ function breaking(name) {
     playersBox[playernumber]["job"] = "なし";
 }
 
+//バイト先就職用のメソッド(引数プレイヤー名)  ***要調整***
+function jobget(name){
+    var ran = Math.floor(Math.random() * 5);
+    var jobevent = ["飲食" , "デスクワーク" , "配達" , "工場" , "コンビニ"];
+
+    playersBox[playernumber]["job"] = jobevent[ran];
+
+}
+
 //バイト代取得用メソッド(引数:プレイヤー名)   ***要調整***
 function partjob(name) {
     playersBox[playernumber]["apply"] += jobkind[playersBox[playernumber]["job"]] * 3 * 12

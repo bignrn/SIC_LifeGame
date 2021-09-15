@@ -51,6 +51,10 @@ function playerEventMain(g) {
     if(e_event_flg){
      eventTextDraw(g,eventArray[e_pNum][e_eNum]);
     }
+    //クリア画面。ブラウザの更新しない限り消えない
+    if(g_end_flag){
+        endWind(g);
+    }
 }
 /**
  * イベントウィンドウを表示する為のfunction
@@ -443,6 +447,6 @@ function waste(name){
 //一周してゴールに入った際のイベント
 function firstgoal(name){
     goal(name);
-
-    return "ゴール！";
+    var text = "ゴール！\n" + playersBox[name]["name"] + "がゴールしました！"
+    return text;
 }

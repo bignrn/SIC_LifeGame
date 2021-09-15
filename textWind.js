@@ -31,8 +31,8 @@ function endWind(g){
     SettingTextWind(g);
 
     //文字
-    g.fillText("ゲーム終了", 80,45);
-    g.fillText("ーボタンを押してねー", 75,65);
+    g.fillText("ゲーム終了!!", 80,45);
+    g.fillText("ーもう一度(更新してね！)ー", 75,65);
 }
 
 /**

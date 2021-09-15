@@ -417,7 +417,7 @@ function waste(name){
     //イベントの影響の反映用ファンクション(引数：消費金額 , プレイヤー名)
     addmoney(wasteMoney[ran], name);
     //ファンクションが返すテキストの生成
-    var Text = EVENT[ran] + wasteMoney[ran] + "円の消費。";
+    var Text = EVENT[ran] + Math.abs(wasteMoney[ran]) + "円の消費。";
     //親に借金をするかどうかの判定
     if(playersBox[name]["apply"] < 0){
         Text += "\n所持金がなくなってしまった！\n仕方なく親にお金を借りた事になった。";

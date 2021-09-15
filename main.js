@@ -49,7 +49,7 @@ var FirstTile;
 var players = 4; //プレイヤー人数
 var order_player = ["1P", "2P", "3P", "4P"];    //プレイヤー名呼出用
 var order_String = "";  //順番表示用
-var moving = ""; //ダイスの出目
+var dice_g = ""; //ダイスの出目
 var titleflag = true;   //人数選択したか判断する用
 var turn_player = 0;
 
@@ -89,7 +89,7 @@ function Timer(){
 
     g.font = FONT;
     g.fillText("順番：" + order_String, 40, 8);
-    g.fillText(moving, 18, 20);
+    g.fillText(dice_g, 10, 20);
 
     //****Norarun の作業↓
     //【他のファイルからの呼び出し】
@@ -208,7 +208,8 @@ function NonePlayers(){
 
 function GetMove() {
     var np = turn_player % players;
-    moving = Math.round( Math.random() * 5) + 1;
+    var moving = Math.round( Math.random() * 5) + 1;
+    dice_g = (np + 1) + "P:" + moving;
     Starts[np] = move(np, moving);
     var longitude = Starts[np][0] / 8;
     var latitude = Starts[np][1] / 8;

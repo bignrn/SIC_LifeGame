@@ -50,7 +50,6 @@ function playerEventMain(g) {
     //イベント発生時にボタンで消す処理
     if(e_event_flg){
      eventTextDraw(g,eventArray[e_pNum][e_eNum]);
-     //    eventTextDraw(g,"eventArray[e_pNum][e_eNum]");
     }
 }
 /**

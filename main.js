@@ -46,12 +46,13 @@ let gImageMap;
 var Map = function (){getMapData()};  //マップタイルの要素番号を取得(←map.js)
 var Starts; //プレイヤー駒の初期位置
 var FirstTile;
-var players = 4; //プレイヤー人数
+let players = 4; //プレイヤー人数
 var order_player = ["1P", "2P", "3P", "4P"];    //プレイヤー名呼出用
 var order_String = "";  //順番表示用
 var dice_g = ""; //ダイスの出目
 var titleflag = true;   //人数選択したか判断する用
 var turn_player = 0;
+var g_end_flag = false;
 
 /**
  * タイマーイベント
@@ -193,7 +194,7 @@ function NonePlayers(){
         order_String += order_player[i];
         order_String += " → ";
     }
-    order_String += order_player[0];
+    order_String += order_player[0] + "...";
 
     setMapData(Map);
     setPosition(Starts, FirstTile, TILESIZE);
@@ -201,13 +202,27 @@ function NonePlayers(){
 //ここまで追記箇所
 
 function GetMove() {
-    var np = turn_player % players;
-    var moving = Math.round( Math.random() * 5) + 1;
-    dice_g = (np + 1) + "P:" + moving;
-    Starts[np] = move(np, moving);
-    var longitude = Starts[np][0] / 8;
-    var latitude = Starts[np][1] / 8;
-    getPlayerNum(np, Map[latitude][longitude]);
+    var gp;
+    if (!g_end_flag) {
+        var np = turn_player % players;
+        var moving = Math.round( Math.random() * 5) + 1;
+        dice_g = (np + 1) + "P:" + moving;
+        gp = move(np, moving);
+    }else {
+        gp = 99;
+    }
+    if (gp == 99) {
+        g_end_flag = true;
+        console.log("/----clear!!!----/");
+    }else if (gp == 999) {
+        turn_player++;
+        GetMove();
+    }else {
+        Starts[np] = gp;
+        var longitude = Starts[np][0] / 8;
+        var latitude = Starts[np][1] / 8;
+        getPlayerNum(np, Map[latitude][longitude]);
+    }
     turn_player++;
 }
 

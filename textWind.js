@@ -113,6 +113,7 @@ function helpWindMain(g){
  * @param g コンテキスト
  */
 function helpWindSecand(g){
+    var eventTitle = []
     console.log("helpWindSecand(g)");
     t_max_page_lenght=1;    //ページの数
 
@@ -176,15 +177,31 @@ function SettingHelp_setting(g,bigTitle){
 /**
  * 現在表示されている選択画面のタイトル表示変更
  */
-function drawScreenTitle(g,interval){
-    //ウィンドウ
-    var ADD = 20;
-    g.fillStyle = "black";  //枠線の色
-    g.fillRect(35,23,50,10);
-    g.fillStyle = "white";  //背景の色
-    g.fillRect(36,24,50,10);
-    g.fillStyle = "black";  //枠線の色
-    g.fillText("操作について",37, 32);
+function drawScreenTitle(g,idx){
+    var title = ["操作","マス"];
+    var w = 25;
+    var h = 12;
+    var interval = 0;
+    for (var i = 0;i < title.length;i++){
+        if(i == idx){
+            g.fillStyle = "black";  //枠線の色
+            g.fillRect(35+interval,21,w,h);
+            g.fillStyle = "white";  //背景の色
+            g.fillRect(36+interval,22,w-2,h);   //選択されてればここが変わるはず
+            g.fillStyle = "black";  //枠線の色
+            g.fillText(title[i],37+interval, 31);
+            interval += w + 2;
+        }else{
+            g.fillStyle = "black";  //枠線の色
+            g.fillRect(35+interval,21,w,h);
+            g.fillStyle = "white";  //背景の色
+            g.fillRect(36+interval,22,w-2,h-1);   //選択されてればここが変わるはず
+            g.fillStyle = "black";  //枠線の色
+            g.fillText(title[i],37+interval, 31);
+            interval += w + 2;
+        }
+
+    }
 }
 
 ////////////////////////////////

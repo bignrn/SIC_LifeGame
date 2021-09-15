@@ -72,10 +72,11 @@ var playersBox = {
         },
     }
 
+
 //プレイヤー番号（仮置き)
 //var playernumber = 0;
-
-//プレイヤー名をキーとした連想配列の設定(ファンクションにしなくても可)
+/*
+プレイヤー名をキーとした連想配列の設定(ファンクションにしなくても可)
 function defaultset() {
     playersBox = {
         0:{
@@ -124,6 +125,8 @@ function defaultset() {
         },
     }
 }
+*/
+
 /*未実装
 //プレイヤー名を設定するメソッド(引数:name  プレイヤー名)
 function nameset(name) {
@@ -178,9 +181,10 @@ function credit_sort() {
 }
 
 */
-//所持金変化用のメソッド(引数:変化する金額 , プレイヤー名)
+//所持金変化用のメソッド(引数:変化する金額 , プレイヤー名)***要確認***
 function addmoney(money, name) {
     playersBox[name]["apply"] += money;
+    
 }
 
 //好感度変化用のメソッド(引数:プレイヤー名 , 好感度変化)  ***要調整***
@@ -191,6 +195,7 @@ function addfriendly(name, add) {
 //バイト先が倒産した場合のメソッド(引数:プレイヤー名)
 function breaking(name) {
     playersBox[name]["job"] = "なし";
+    console.log("チェックテスト" + name);
 }
 
 //バイト先就職用のメソッド(引数プレイヤー名)  ***要調整***
@@ -199,6 +204,7 @@ function jobget(name){
     var jobevent = ["飲食" , "デスクワーク" , "配達" , "工場" , "コンビニ"];
 
     playersBox[name]["job"] = jobevent[ran];
+    console.log("チェックテスト" + name);
 
 }
 

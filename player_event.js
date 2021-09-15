@@ -122,7 +122,7 @@ window.onkeydown = function (e) {
         if(e_btn_index>0&&!e_sw_flg){
             e_btn_index--;  //プレイヤー情報画面
         }
-        if(e_btn_help[0]>0){
+        if(e_btn_help[0]>0&&e_sw_flg){
             e_btn_help[0]--;//ヘルプ画面
         }
     }                                       //左
@@ -131,13 +131,13 @@ window.onkeydown = function (e) {
         if(e_btn_help[1]>0){
             e_btn_help[1]--;//ヘルプ画面
         }
-    }     //上
+    }                                       //上
     if (c == KRIGHT) {
         console.log("右");
         if(e_btn_index<1&&!e_sw_flg){
             e_btn_index++;  //プレイヤー情報画面の変数
         }
-        if(e_btn_help[0]<t_max_page){
+        if(e_btn_help[0]<t_max_page&&e_sw_flg){
             e_btn_help[0]++;//ヘルプ画面
         }
     }                                       //右
@@ -185,44 +185,44 @@ var p4 = 3;
 
 //変更点
 
+/*
+var eventArray = {
+    0:{
+        0:announce(),//中間発表イベント
+        37:firstgoal(p1),//ゴール（仮配置)
+        48:fes(p1),//地球祭イベント
+        49:chanceAchieve(p1),//資格取得イベント
+        50:getoffer(p1),//内定取得イベント
+        51:lostoffer(p1),//内定喪失イベント
+        52:sports(p1),//球技大会イベント
+        53:makechance(p1),//交際破局イベント
+        54:datetime(p1),//デートイベント
+        55:salary(p1),//バイト代取得イベント
+        56:breakdown(p1),//バイト先消滅イベント
+        57:failed(p1),//単位喪失イベント
+        58:getcredit(p1),//単位取得イベント
+        59:waste(p1),//お金浪費イベント
+        63:waste(p1),//お金浪費イベント
+    },
+    
+    1:{ 
+        0:announce(),//中間発表イベント
+        38:firstgoal(p2),//ゴール（仮配置),
+        48:fes(p2),//地球祭イベント
+        49:chanceAchieve(p2),//資格取得イベント
+        50:getoffer(p2),//内定取得イベント
+        51:lostoffer(p2),//内定喪失イベント
+        52:sports(p2),//球技大会イベント
+        53:makechance(p2),//交際破局イベント
+        54:datetime(p2),//デートイベント
+        55:salary(p2),//バイト代取得イベント
+        56:breakdown(p2),//バイト先消滅イベント
+        57:failed(p2),//単位喪失イベント
+        58:getcredit(p2),//単位取得イベント
+        59:waste(p2),//お金浪費イベント
+        63:waste(p2),//お金浪費イベント
+    },
 
-// var eventArray = {
-//     0:{
-//         0:announce(),//中間発表イベント
-//         37:firstgoal(p1),//ゴール（仮配置)
-//         48:fes(p1),//地球祭イベント
-//         49:chanceAchieve(p1),//資格取得イベント
-//         50:getoffer(p1),//内定取得イベント
-//         51:lostoffer(p1),//内定喪失イベント
-//         52:sports(p1),//球技大会イベント
-//         53:makechance(p1),//交際破局イベント
-//         54:datetime(p1),//デートイベント
-//         55:salary(p1),//バイト代取得イベント
-//         56:breakdown(p1),//バイト先消滅イベント
-//         57:failed(p1),//単位喪失イベント
-//         58:getcredit(p1),//単位取得イベント
-//         59:waste(p1),//お金浪費イベント
-//         63:waste(p1),//お金浪費イベント
-//     },
-    
-//     1:{ 
-//         0:announce(),//中間発表イベント
-//         38:firstgoal(p2),//ゴール（仮配置),
-//         48:fes(p2),//地球祭イベント
-//         49:chanceAchieve(p2),//資格取得イベント
-//         50:getoffer(p2),//内定取得イベント
-//         51:lostoffer(p2),//内定喪失イベント
-//         52:sports(p2),//球技大会イベント
-//         53:makechance(p2),//交際破局イベント
-//         54:datetime(p2),//デートイベント
-//         55:salary(p2),//バイト代取得イベント
-//         56:breakdown(p2),//バイト先消滅イベント
-//         57:failed(p2),//単位喪失イベント
-//         58:getcredit(p2),//単位取得イベント
-//         59:waste(p2),//お金浪費イベント
-//         63:waste(p2),//お金浪費イベント
-//     },
-    
 //     2:{
 //         0:announce(),//中間発表イベント
 //         41:firstgoal(p3),//ゴール（仮配置),
@@ -241,88 +241,92 @@ var p4 = 3;
 //         63:waste(p3),//お金浪費イベント
 //     },
     
-//     3:{ 
-//         0:announce(),//中間発表イベント
-//         42:firstgoal(p4),//ゴール（仮配置),
-//         48:fes(p4),//地球祭イベント
-//         49:chanceAchieve(p4),//資格取得イベント
-//         50:getoffer(p4),//内定取得イベント
-//         51:lostoffer(p4),//内定喪失イベント
-//         52:sports(p4),//球技大会イベント
-//         53:makechance(p4),//交際破局イベント
-//         54:datetime(p4),//デートイベント
-//         55:salary(p4),//バイト代取得イベント
-//         56:breakdown(p4),//バイト先消滅イベント
-//         57:failed(p4),//単位喪失イベント
-//         58:getcredit(p4),//単位取得イベント
-//         59:waste(p4),//お金浪費イベント
-//         63:waste(p4),//お金浪費イベント
-//     },
-// };
+    3:{ 
+        0:announce(),//中間発表イベント
+        42:firstgoal(p4),//ゴール（仮配置),
+        48:fes(p4),//地球祭イベント
+        49:chanceAchieve(p4),//資格取得イベント
+        50:getoffer(p4),//内定取得イベント
+        51:lostoffer(p4),//内定喪失イベント
+        52:sports(p4),//球技大会イベント
+        53:makechance(p4),//交際破局イベント
+        54:datetime(p4),//デートイベント
+        55:salary(p4),//バイト代取得イベント
+        56:breakdown(p4),//バイト先消滅イベント
+        57:failed(p4),//単位喪失イベント
+        58:getcredit(p4),//単位取得イベント
+        59:waste(p4),//お金浪費イベント
+        63:waste(p4),//お金浪費イベント
+    },
+};
+*/
+
 
 function eventSwitch(name , eventValue){
 
+    var Text;
     switch(eventValue){
         case 0  : 
-        ananounce();
+        Text = ananounce();
         break;
 
         case 42 : 
-        firstgoal(name);//ゴール（仮配置),
+        Text = firstgoal(name);//ゴール（仮配置),
         break;
 
         case 48 : 
-        fes(name);//地球祭イベント
+        Text = fes(name);//地球祭イベント
         break;
 
         case 49 : 
-        chanceAchieve(name);//資格取得イベント
+        Text = chanceAchieve(name);//資格取得イベント
         break;
 
         case 50 : 
-        getoffer(name);//内定取得イベント
+        Text = getoffer(name);//内定取得イベント
         break;
 
         case 51 : 
-        lostoffer(name);//内定喪失イベント
+        Text = lostoffer(name);//内定喪失イベント
         break;
 
         case 52 : 
-        sports(name);//球技大会イベント
+        Text = sports(name);//球技大会イベント
         break;
 
         case 53 : 
-        makechance(name);//交際破局イベント
+        Text = makechance(name);//交際破局イベント
         break;
 
         case 54 : 
-        datetime(name);//デートイベント
+        Text = datetime(name);//デートイベント
         break;
 
         case 55 : 
-        salary(name);//バイト代取得イベント
+        Text = salary(name);//バイト代取得イベント
         break;
 
         case 56 : 
-        breakdown(name);//バイト先消滅イベント
+        Text = breakdown(name);//バイト先消滅イベント
         break;
 
         case 57 : 
-        failed(name);//単位喪失イベント
+        Text = failed(name);//単位喪失イベント
         break;
 
         case 58 : 
-        getcredit(name);//単位取得イベント
+        Text = getcredit(name);//単位取得イベント
         break;
 
         case 59 : 
-        waste(name);//お金浪費イベント
+        Text = waste(name);//お金浪費イベント
         break;
 
         case 63 : 
-        waste(name);//お金浪費イベント
+        Text = waste(name);//お金浪費イベント
         break;
     }
+    return Text;
 }
 
 //ここまで変更点
@@ -510,7 +514,6 @@ function announce() {
     // var credit_rank = credit_sort();
 }
 
-
 //お金浪費マスのイベント(引数：プレイヤー名)(戻り値：イベントテキスト)
 function waste(name){
     //どのイベントが起きるかを決める乱数の生成
@@ -529,6 +532,7 @@ function waste(name){
         "友人と遊ぶために、\n新作ゲームを出し合って購入。\n","友人と遊ぶために、\n新作ゲームを購入。\n","友人と遊ぶために、新作ゲームの機材を購入。\n",
         "ジュースを買おうと自販機の前へ。\nお気に入りのジュースを購入。\n","ジュースを買おうと自販機の前へ。\n初めて見るジュースに惹かれて購入。\n","ジュースを買おうと自販機の前へ。\nしかし、不運な事に自販機の下に\nお金を落としてしまった。\n"
     ];
+
     //イベントの影響の反映用ファンクション(引数：消費金額 , プレイヤー名)
     addmoney(wasteMoney[ran], name);
     //ファンクションが返すテキストの生成
@@ -538,6 +542,7 @@ function waste(name){
         Text += "\n所持金がなくなってしまった！\n仕方なく親にお金を借りた事になった。";
     }
     //現在の所持金を明示するための追加
+    //Text += "\n所持金：" + playersBox[name]["apply"] + "円";
     Text += "\n所持金：" + playersBox[name]["apply"] + "円";
 
     return Text;

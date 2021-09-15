@@ -222,8 +222,8 @@ function GetMove() {
         var longitude = Starts[np][0] / 8;
         var latitude = Starts[np][1] / 8;
         getPlayerNum(np, Map[latitude][longitude]);
+        turn_player++;
     }
-    turn_player++;
 }
 
 /**

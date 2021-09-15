@@ -49,7 +49,6 @@ function playersInfoDraw(g){
     g.fillText("ランキング",150,20);      //タイトル
 
     //プレイヤーの情報
-    defaultset();
     var inte = 0;
     for (var i = 0; i < players; i++){
         playerInfo(g, inte, i, playersBox[i]["name"], playersBox[i]["apply"],playersBox[i]["credit"] ,playersBox[i]["offer"],playersBox[i]["achievement"],playersBox[i]["girlfriend"]);

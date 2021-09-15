@@ -28,7 +28,7 @@ var achieverank = { "なし": 0, "基情": 1, "応情": 2, "高度": 3 };
 var playersBox = {
         0:{
             "name":"",
-            "apply":0,
+            "apply":100000,
             "achievement":"なし",
             "offer": "なし",
             "girlfriend": "なし",
@@ -38,7 +38,7 @@ var playersBox = {
         },
         1:{
             "name":"",
-            "apply":0,
+            "apply":100000,
             "achievement":"なし",
             "offer": "なし",
             "girlfriend": "なし",
@@ -48,7 +48,7 @@ var playersBox = {
         },
         2:{
             "name":"",
-            "apply":0,
+            "apply":100000,
             "achievement":"なし",
             "offer": "なし",
             "girlfriend": "なし",
@@ -58,7 +58,7 @@ var playersBox = {
         },
         3:{
             "name":"",
-            "apply":0,
+            "apply":100000,
             "achievement":"なし",
             "offer": "なし",
             "girlfriend": "なし",

@@ -17,7 +17,7 @@ var names = { 0: "Name1", 1: "Name2", 2: "Name3", 3: "Name4" };
 // var job = {};
 
 //順位表示用のデータを入れ替える連想配列(連想配列じゃなくても可)
-var ranking = ["Name1", "Name2", "Name3", "Name4"];
+var ranking = ["プレイヤー１", "プレイヤー２", "プレイヤー３", "プレイヤー４"];
 //内定先の順位で優劣を決める場合に用いる連想配列
 var offer_rank = { "未定": 0, "小企業": 1, "中企業": 2, "大企業": 3 };
 //バイト先の職種の連想配列
@@ -136,7 +136,6 @@ function nameset(name) {
 }
 */
 
-/*未実装
 //所持金別の順位ソート(戻り値：所持金別順位の配列)
 function apply_sort() {
     for (var i = 0; i < applys.length; i++) {
@@ -152,6 +151,7 @@ function apply_sort() {
     return ranking;
 }
 
+/*未実装
 //内定先の順位ソート(戻り値：内定先順位の配列)
 function offer_sort() {
     for (var i = 0; i < 4; i++) {

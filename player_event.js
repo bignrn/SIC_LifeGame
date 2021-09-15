@@ -371,13 +371,13 @@ function failed(name) {
     }
 
     if (flag == "欠席") {
-        if(playersBox[name]["credit"] > 2){
+        if(playersBox[name]["credit"] >= 2){
             credite(name, -2);
         }
 
         Text = "授業を欠席してしまった。\n単位を2失った。"
     } else if (playersBox[name]["lateday"] == 3) {
-        if(playersBox[name]["credit"] > 2){
+        if(playersBox[name]["credit"] >= 2){
             credite(name, -2);
         }
         playersBox[name]["lateday"] = 0;
@@ -445,7 +445,7 @@ function datetime(name) {
         const FRIENDLY = [0, 4, 2, 2, -2, -1, -5];
         date(WASTE[CHOISE], name, FRIENDLY[CHOISE]);
 
-        Text = EVENT[CHOISE] + WASTE[CHOISE] + "円の消費、好感度：" + FRIENDLY[CHOISE];
+        Text += EVENT[CHOISE] + WASTE[CHOISE] + "円の消費、好感度：" + FRIENDLY[CHOISE];
     }
     return Text;
 }
@@ -529,11 +529,13 @@ function sports(name) {
 //中間発表用のメソッド
 function announce() {
     //所持金順位の配列
-    // var apply_rank = apply_sort();
+     var apply_rank = apply_sort();
     //内定順位の配列
     // var offer_rank = offer_sort();
     //単位順位の配列
     // var credit_rank = credit_sort();
+
+    return apply_rank;
 }
 
 //お金浪費マスのイベント(引数：プレイヤー名)(戻り値：イベントテキスト)

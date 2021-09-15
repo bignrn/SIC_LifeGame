@@ -16,11 +16,10 @@ const KDOWN  = 40;   //キーボード番号設定
 
 let e_sw_flg    = false;    //ON/OFFを切り替える
 let e_event_flg = false;    //イベントが呼ばれたかを確認
-let e_swMemory  = e_sw_flg; //押されたか記憶する
 let e_keyNum    = -1;       //押されたキーボード番号を取得
 let e_gameWatch = true;     //スタート画面を消す
 let e_btn_index = 0;        //ボタンの移動
-let idx = 64;
+let e_max_page_length;
 var e_pNum; 　　　　　　　　　　//プレイヤーナンバー
 var e_eNum; 　　　　　　　　　　//イベント番号
 
@@ -52,7 +51,6 @@ function playerEventMain(g) {
     if(e_event_flg){
      eventTextDraw(g,eventArray[e_pNum][e_eNum]);
     }
-    console.log("Event_idx:"+idx);
 }
 /**
  * イベントウィンドウを表示する為のfunction
@@ -60,6 +58,7 @@ function playerEventMain(g) {
  * @param eNum　イベント番号
  */
 function getPlayerNum(pNum,eNum){
+    console.log("getPlayerNum("+pNum+","+eNum+")");
   e_event_flg = true; //イベント画面のフラグ
   e_eNum = eNum;      //イベント番号をグローバル変数に格納
   e_pNum = pNum;      //プレイヤー番号をグローバル変数に格納
@@ -80,12 +79,15 @@ function HelpKeySwFun(){
 
 /**
  * ゲームがスタートしたか判定する
+ * ゲームが始まっていたらサイコロを振る。
  */
 function gameWatch(){
     if (e_gameWatch){
         NonePlayers();
     }else if(!e_event_flg && !e_sw_flg){
         GetMove();
+    }else{
+        e_event_flg = false;
     }
 }
 /**
@@ -115,18 +117,13 @@ window.onkeydown = function (e) {
     if (c == KENTER) {
         console.log("ENTER");
         gameWatch();            //スタート画面の処理とサイコロ
-        e_event_flg = false;    //イベント処理
         e_keyNum=KENTER;
     }                                       //ENTER
     if (c == KSPACE) {
         console.log("SPACE");
         gameWatch();            //スタート画面の処理とサイコロ
-        e_event_flg = false;    //イベント処理
         e_keyNum=KSPACE;
     }                                       //SPACE
-
-    console.log("★押されたキーボード番号："+c)
-    console.log("btn："+e_btn_index)
 }
 
 /*

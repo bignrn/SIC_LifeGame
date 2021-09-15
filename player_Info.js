@@ -25,11 +25,13 @@ function playerInfoMain(){
     const ca = document.getElementById("info"); //ID取得
     const g = ca.getContext("2d");
 
+    e_max_page_length = 1;
     if(e_btn_index==0){
         playersInfoDraw(g); //プレイヤーの情報
     }else if(e_btn_index==1){
         playersLankDraw(g); //プレイヤーのランキング
     }
+    drawPageNum(g,e_btn_index);
 }
 
 /**
@@ -148,6 +150,17 @@ function playerImageDraw(g,index,interval,x,y){
     g.drawImage(gPlayerImage, pix,piy,TILESIZE,TILESIZE,10 + x,20 + y + interval,32,32);
 }
 
+function drawPageNum(g,int){
+    if(int==0){
+        g.fillText("進む→",200,540);  //1ページ目
+    }else if(int == e_max_page_length){
+        g.fillText("←戻る",10,540);   //最後のページ
+    }else if(int>0){
+        g.fillText("進む→",200,540);  //中間のページ
+        g.fillText("←戻る",10,540);
+    }
+    g.fillText((int+1)+"ページ",100,540);
+}
 /**
  * キャンバスの設定
  */

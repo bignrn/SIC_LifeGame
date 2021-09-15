@@ -59,6 +59,7 @@ function textWindMain(g, eventName, uName,contents,pay){
  * @param g
  */
 function eventTextDraw(g,text){
+    console.log("eventTextDraw(g,text)");
     SettingTextWind(g);
     //イベント内容
     var lineHeight = 1.1618 ;	// 行の高さ (フォントサイズに対する倍率)

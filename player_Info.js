@@ -87,7 +87,7 @@ function playerInfo(g, interval, index, uName, gold, point, offer, cer, Dating, 
     //プレイヤーの交際
     g.fillText("交際："+Dating, 150, 105 + interval);
     //プレイヤーのバイト先名
-    g.fillText("仕事："+Dating, 150, 125 + interval);
+    g.fillText("仕事："+job, 150, 125 + interval);
 }
 /**
  * プレイヤー情報を描画する

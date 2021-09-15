@@ -21,6 +21,20 @@ function startWind(g){
     g.fillText("ゲームスタート画面", 80,45);
     g.fillText("ーボタンを押してねー", 75,65);
 }
+
+/**
+ * スタート時に一回呼び出される
+ * @param g
+ */
+function endWind(g){
+    console.log("startWind(g)")
+    SettingTextWind(g);
+
+    //文字
+    g.fillText("ゲーム終了", 80,45);
+    g.fillText("ーボタンを押してねー", 75,65);
+}
+
 /**
  * テキストウィンドウの呼び出しfunction
  * @param g             コンテキスト

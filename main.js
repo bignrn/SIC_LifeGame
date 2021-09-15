@@ -222,7 +222,5 @@ window.onload = function (){
     Screen.width = WIDTH;
     Screen.height = HEIGHT;
 
-    // defaultset();
-
     setInterval(function (){Timer()},400);//500msで呼び出す
 }

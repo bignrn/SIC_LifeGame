@@ -22,6 +22,7 @@ let e_btn_index = 0;        //ボタンの移動
 var e_btn_help  = [0,0];//ヘルプ画面のボタン移動記録(左右、上下)
 var e_pNum; 　　　　　　　　　　//プレイヤーナンバー
 var e_eNum; 　　　　　　　　　　//イベント番号
+var etext;
 
 /**
  * ボタンを描画する
@@ -49,7 +50,7 @@ function playerEventMain(g) {
     }
     //イベント発生時にボタンで消す処理
     if(e_event_flg){
-     eventTextDraw(g,eventSwitch(e_pNum , e_eNum));
+     eventTextDraw(g,etext);
     }
     //クリア画面。ブラウザの更新しない限り消えない
     if(g_end_flag){
@@ -270,6 +271,18 @@ function eventSwitch(name , eventValue){
         Text = ananounce();
         break;
 
+        case 37 : 
+        Text = firstgoal(name);//ゴール（仮配置),
+        break;
+        
+        case 38 : 
+        Text = firstgoal(name);//ゴール（仮配置),
+        break;
+        
+        case 41 : 
+        Text = firstgoal(name);//ゴール（仮配置),
+        break;
+
         case 42 : 
         Text = firstgoal(name);//ゴール（仮配置),
         break;
@@ -353,19 +366,23 @@ function failed(name) {
     else flag = "遅刻";
     var Text = "";
     if (flag == "遅刻") {
-        lateday++;
+        playersBox[name]["lateday"]++;
         Text = "授業に遅刻をしてしまった。";
     }
 
     if (flag == "欠席") {
-        credite(name, -2);
+        if(playersBox[name]["credit"] > 2){
+            credite(name, -2);
+        }
 
         Text = "授業を欠席してしまった。\n単位を2失った。"
-    } else if (lateday == 3) {
-        credite(name, -2);
-        lateday = 0;
+    } else if (playersBox[name]["lateday"] == 3) {
+        if(playersBox[name]["credit"] > 2){
+            credite(name, -2);
+        }
+        playersBox[name]["lateday"] = 0;
 
-        Text += "遅刻が3回になった\n単位を2失った。";
+        Text += "\n遅刻が3回になった\n単位を2失った。";
     }
 
     return Text;
@@ -390,9 +407,11 @@ function salary(name) {
 
 //バイト先が無くなるマスのイベント(戻り値：テキスト)
 function breakdown(name) {
-    breaking(name);
-
-    return "バイト先が無くなってしまった。\n仕事　なし";
+    if(playersBox[name]["job"] != "なし"){
+        return breaking(name);
+    }else{
+        return "最近近くの会社が廃業したらしい。";
+    }
 }
 
 //資格取得チャレンジ(確定)(引数:プレイヤー名)(戻り値：テキスト)
@@ -408,23 +427,26 @@ function makechance(name) {
 
 //デートマスのイベント(引数:プレイヤー名  戻り値：イベントテキスト)
 function datetime(name) {
-    const CHOISE = Math.floor(Math.random() * 7);
-    //イベントテキスト
-    
-    const EVENT = ["が、しかし、\nお互いに予定が合わず見送りになった。",
-        "高級レストランに招待。\n",
-        "ペアルックの為に服を買った。\n",
-        "彼女の誕生日！プレゼントを購入。\n",
-        "レストランに行くことになった。\n",
-        "元恋人と出会ってしまった。気まずい。\n",
-        "今日は誕生日だった！\nプレゼントを忘れてしまった。\n"];
-    //消費
-    const WASTE = [0, 15000, 3400, 5500, 1500, 0, 0];
-    //好感度変化
-    const FRIENDLY = [0, 4, 2, 2, -2, -1, -5];
-    date(WASTE[CHOISE], name, FRIENDLY[CHOISE]);
+    var Text = "今日は何もない一日だった。";
+    if(playersBox[name]["girlfriend"] == "あり"){
+        const CHOISE = Math.floor(Math.random() * 7);
+        //イベントテキスト
+        
+        const EVENT = ["が、しかし、\nお互いに予定が合わず見送りになった。",
+            "高級レストランに招待。\n",
+            "ペアルックの為に服を買った。\n",
+            "彼女の誕生日！プレゼントを購入。\n",
+            "レストランに行くことになった。\n",
+            "元恋人と出会ってしまった。気まずい。\n",
+            "今日は誕生日だった！\nプレゼントを忘れてしまった。\n"];
+        //消費
+        const WASTE = [0, 15000, 3400, 5500, 1500, 0, 0];
+        //好感度変化
+        const FRIENDLY = [0, 4, 2, 2, -2, -1, -5];
+        date(WASTE[CHOISE], name, FRIENDLY[CHOISE]);
 
-    var Text = EVENT[CHOISE] + WASTE[CHOISE] + "円の消費、好感度：" + FRIENDLY[CHOISE];
+        Text = EVENT[CHOISE] + WASTE[CHOISE] + "円の消費、好感度：" + FRIENDLY[CHOISE];
+    }
     return Text;
 }
 
@@ -446,7 +468,7 @@ function getoffer(name) {
 
     var posittion = offered(name, n , playersBox[name]["achievement"]);
 
-    if(posittion != "なし"){
+    if(posittion != "未定"){
         return "内定を獲得した。\n内定：" + posittion;
     }else{
         return "お祈りメールをもらった。\n内定：なし"; 

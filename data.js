@@ -21,13 +21,13 @@ var ranking = ["Name1", "Name2", "Name3", "Name4"];
 //内定先の順位で優劣を決める場合に用いる連想配列
 var offer_rank = { "未定": 0, "小企業": 1, "中企業": 2, "大企業": 3 };
 //バイト先の職種の連想配列
-var jobkind = { "なし":0, "飲食": 800, "デスクワーク": 900, "配達": 900, "工場": 850, "コンビニ": 750 };
+var jobkind = { "なし":0, "飲食": 800, "事務": 900, "配達": 900, "工場": 850, "コンビニ": 750 };
 //資格ランクの連想配列
 var achieverank = { "なし": 0, "基情": 1, "応情": 2, "高度": 3 };
 //プレイヤーごとの所持データの格納先
 var playersBox = {
         0:{
-            "name":"",
+            "name":"プレイヤー１",
             "apply":100000,
             "achievement":"なし",
             "offer": "未定",
@@ -36,9 +36,10 @@ var playersBox = {
             "credit": 0,
             "job": "なし",
             "round": 0,
+            "lateday":0,
         },
         1:{
-            "name":"",
+            "name":"プレイヤー２",
             "apply":100000,
             "achievement":"なし",
             "offer": "未定",
@@ -47,9 +48,10 @@ var playersBox = {
             "credit": 0,
             "job": "なし",
             "round": 0,
+            "lateday":0,
         },
         2:{
-            "name":"",
+            "name":"プレイヤー３",
             "apply":100000,
             "achievement":"なし",
             "offer": "未定",
@@ -58,9 +60,10 @@ var playersBox = {
             "credit": 0,
             "job": "なし",
             "round": 0,
+            "lateday":0,
         },
         3:{
-            "name":"",
+            "name":"プレイヤー４",
             "apply":100000,
             "achievement":"なし",
             "offer": "未定",
@@ -69,6 +72,7 @@ var playersBox = {
             "credit": 0,
             "job": "なし",
             "round": 0,
+            "lateday":0,
         },
     }
 
@@ -192,14 +196,20 @@ function addfriendly(name, add) {
 
 //バイト先が倒産した場合のメソッド(引数:プレイヤー名)
 function breaking(name) {
-    playersBox[name]["job"] = "なし";
-    console.log("チェックテスト" + name);
+    var ran = Math.floor(Math.random() * 10);
+    if(ran < 3){
+        playersBox[name]["job"] = "なし";
+        return "バイト先が無くなってしまった。\n仕事　なし";
+    }else{
+        return "バイト先の危機だったが、無事だった。";
+
+    }
 }
 
 //バイト先就職用のメソッド(引数プレイヤー名)  ***要調整***
 function jobget(name){
     var ran = Math.floor(Math.random() * 5);
-    var jobevent = ["飲食" , "デスクワーク" , "配達" , "工場" , "コンビニ"];
+    var jobevent = ["飲食" , "事務" , "配達" , "工場" , "コンビニ"];
 
     playersBox[name]["job"] = jobevent[ran];
     console.log("チェックテスト" + name);
@@ -208,7 +218,8 @@ function jobget(name){
 
 //バイト代取得用メソッド(引数:プレイヤー名)   ***要調整***
 function partjob(name) {
-    playersBox[name]["apply"] += jobkind[playersBox[name]["job"]] * 3 * 12
+    playersBox[name]["apply"] += jobkind[playersBox[name]["job"]] * 3 * 12;
+    return jobkind[playersBox[name]["job"]] * 3 * 12
 }
 
 //交際or破局のメソッド(引数:プレイヤー名)(戻り値：イベントテキスト)

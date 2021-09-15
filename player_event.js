@@ -255,10 +255,16 @@ function failed(name) {
 
 //バイト代取得マスのイベント(引数：プレイヤー名)(戻り値：テキスト)
 function salary(name) {
-    var num = partjob(name);
-    var Text = "今日はバイトの給料日。\n";
+    if(playersBox[name]["job"] != "なし"){
+        var num = partjob(name);
+        var Text = "今日はバイトの給料日。\n";
 
-    Text += num + "円手に入れた。";
+        Text += num + "円手に入れた。";
+    }else{
+        jobget();
+        var Text = "仕事が" + playersBox[name]["job"] + "になった。";
+
+    }
 
     return Text;
 }
@@ -319,7 +325,7 @@ function getoffer(name) {
     //70%で内定取得するための乱数
     var n = Math.floor(Math.random() * 10);
 
-    var posittion = offered(name, n , playersBox[playernumber]["achievement"]);
+    var posittion = offered(name, n , playersBox[name]["achievement"]);
 
     if(posittion != "なし"){
         return "内定を獲得した。\n内定：" + posittion;
@@ -413,11 +419,11 @@ function waste(name){
     //ファンクションが返すテキストの生成
     var Text = EVENT[ran] + wasteMoney[ran] + "円の消費。";
     //親に借金をするかどうかの判定
-    if(playersBox[playernumber]["apply"] < 0){
+    if(playersBox[name]["apply"] < 0){
         Text += "\n所持金がなくなってしまった！\n仕方なく親にお金を借りた事になった。";
     }
     //現在の所持金を明示するための追加
-    Text += "\n所持金：" + playersBox[playernumber]["apply"] + "円";
+    Text += "\n所持金：" + playersBox[name]["apply"] + "円";
 
     return Text;
     

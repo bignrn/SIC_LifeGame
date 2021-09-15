@@ -8,6 +8,7 @@ var orbit_count = [0,0,0,0];
 var xy_flag = [0,0,0,0];
 var plus_minus = [1,1,1,1];
 var count = 0;
+var end_flag = 999;
 var iy;
 var ix;
 var ixy;
@@ -36,51 +37,56 @@ function setPosition(l, f, s){
 }
 
 function move(p, rep) {
-    if (player_flag[p]) {
-        player_position[p][0] = first_tile[0];
-        player_position[p][1] = first_tile[1];
-        rep--;
-        player_flag[p] = false;
-    }
-    for (var i = 0; i < rep; i++) {
-        player_position[p][xy_flag[p]] += plus_minus[p] * tile_size;
-        iy = player_position[p][1] / tile_size;
-        ix = player_position[p][0] / tile_size;
-        ixy = [ix, iy];
-        if(MapData[ixy[1]][ixy[0]] >= 32 && MapData[ixy[1]][ixy[0]] <= 47) {
-            player_flag[p] = true;
-            player_position[p][0] = player_first_position[p][0];
-            player_position[p][1] = player_first_position[p][1];
-            xy_flag[p] = 0;
-            plus_minus[p] = 1;
-            orbit_count[p]++;
-            var orbit_end_flag = true;
-            for (var i = 0; i < orbit_count.length; i++) {
-                if (orbit_count[i] < 2) {
-                    orbit_end_flag = false;
-                }
-            }
-            if (orbit_end_flag) {
-                player_position[p] = -1;
-            }
-            break;
+    if (orbit_count[p] < 2) {
+        if (player_flag[p]) {
+            player_position[p][0] = first_tile[0];
+            player_position[p][1] = first_tile[1];
+            rep--;
+            player_flag[p] = false;
         }
-        if(orbit_count[p] < 2 && MapData[ixy[1]][ixy[0]] < 48) {
-            player_position[p][xy_flag[p]] -= plus_minus[p] * tile_size;
-            ixy[xy_flag[p]] -= plus_minus[p];
-            if(xy_flag[p] == 0 && (MapData[ixy[1] + 1][ixy[0]] >= 32)) {
-                plus_minus[p] = 1;
-            }else if(xy_flag[p] == 0 && (MapData[ixy[1] - 1][ixy[0]] >= 32)) {
-                plus_minus[p] = -1;
-            }
-            if(xy_flag[p] == 1 && (MapData[ixy[1]][ixy[0] + 1] >= 32)) {
-                plus_minus[p] = 1;
-            }else if(xy_flag[p] == 1 && (MapData[ixy[1]][ixy[0] - 1] >= 32)) {
-                plus_minus[p] = -1;
-            }
-            xy_flag[p] = 1 - xy_flag[p];
+        for (var i = 0; i < rep; i++) {
             player_position[p][xy_flag[p]] += plus_minus[p] * tile_size;
+            iy = player_position[p][1] / tile_size;
+            ix = player_position[p][0] / tile_size;
+            ixy = [ix, iy];
+            if(MapData[ixy[1]][ixy[0]] >= 32 && MapData[ixy[1]][ixy[0]] <= 47) {
+                player_flag[p] = true;
+                player_position[p][0] = player_first_position[p][0];
+                player_position[p][1] = player_first_position[p][1];
+                xy_flag[p] = 0;
+                plus_minus[p] = 1;
+                orbit_count[p]++;
+                var orbit_end_flag = true;
+                for (var i = 0; i < players; i++) {
+                    if (orbit_count[i] < 2) {
+                        orbit_end_flag = false;
+                    }
+                }
+                if (orbit_end_flag) {
+                    end_flag = 99;
+                    return end_flag;
+                }
+                break;
+            }
+            if(MapData[ixy[1]][ixy[0]] < 48) {
+                player_position[p][xy_flag[p]] -= plus_minus[p] * tile_size;
+                ixy[xy_flag[p]] -= plus_minus[p];
+                if(xy_flag[p] == 0 && (MapData[ixy[1] + 1][ixy[0]] >= 32)) {
+                    plus_minus[p] = 1;
+                }else if(xy_flag[p] == 0 && (MapData[ixy[1] - 1][ixy[0]] >= 32)) {
+                    plus_minus[p] = -1;
+                }
+                if(xy_flag[p] == 1 && (MapData[ixy[1]][ixy[0] + 1] >= 32)) {
+                    plus_minus[p] = 1;
+                }else if(xy_flag[p] == 1 && (MapData[ixy[1]][ixy[0] - 1] >= 32)) {
+                    plus_minus[p] = -1;
+                }
+                xy_flag[p] = 1 - xy_flag[p];
+                player_position[p][xy_flag[p]] += plus_minus[p] * tile_size;
+            }
         }
+    }else {
+        return end_flag;
     }
 
     return player_position[p];

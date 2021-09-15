@@ -319,7 +319,7 @@ function failed(name) {
     else flag = "遅刻";
     var Text = "";
     if (flag == "遅刻") {
-        lateday++;
+        playersBox[name]["lateday"]++;
         Text = "授業に遅刻をしてしまった。";
     }
 
@@ -327,9 +327,9 @@ function failed(name) {
         credite(name, -2);
 
         Text = "授業を欠席してしまった。\n単位を2失った。"
-    } else if (lateday == 3) {
+    } else if (playersBox[name]["lateday"] == 3) {
         credite(name, -2);
-        lateday = 0;
+        playersBox[name]["lateday"] = 0;
 
         Text += "遅刻が3回になった\n単位を2失った。";
     }

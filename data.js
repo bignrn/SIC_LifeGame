@@ -36,6 +36,7 @@ var playersBox = {
             "credit": 0,
             "job": "なし",
             "round": 0,
+            "lateday":0,
         },
         1:{
             "name":"",
@@ -47,6 +48,7 @@ var playersBox = {
             "credit": 0,
             "job": "なし",
             "round": 0,
+            "lateday":0,
         },
         2:{
             "name":"",
@@ -58,6 +60,7 @@ var playersBox = {
             "credit": 0,
             "job": "なし",
             "round": 0,
+            "lateday":0,
         },
         3:{
             "name":"",
@@ -69,6 +72,7 @@ var playersBox = {
             "credit": 0,
             "job": "なし",
             "round": 0,
+            "lateday":0,
         },
     }
 

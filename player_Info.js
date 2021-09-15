@@ -54,6 +54,7 @@ function playersInfoDraw(g){
         playerInfo(g, inte, i, playersBox[i]["name"], playersBox[i]["apply"],playersBox[i]["credit"] ,playersBox[i]["offer"],playersBox[i]["achievement"],playersBox[i]["girlfriend"]);
         inte += 110;    //文字をずらすため
     }
+    console.log(playersBox[0]["apply"]);
 }
 
 /**

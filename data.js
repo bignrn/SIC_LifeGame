@@ -342,7 +342,7 @@ function sport(name, ran) {
     return 0;
 }
 
-// function goal(name) {
-//     var a = playersBox[name]["friendly"];
+function goal(name) {
+    var a = playersBox[name]["friendly"];
 
-// }
+}

@@ -147,7 +147,7 @@ var p4 = 3;
 var eventArray = {
     0:{
         0:announce(),//中間発表イベント
-        //37:firstgoal(),//ゴール（仮配置)
+        37:firstgoal(p1),//ゴール（仮配置)
         48:fes(p1),//地球祭イベント
         49:chanceAchieve(p1),//資格取得イベント
         50:getoffer(p1),//内定取得イベント
@@ -165,7 +165,7 @@ var eventArray = {
     
     1:{ 
         0:announce(),//中間発表イベント
-        //38:firstgoal(),//ゴール（仮配置),
+        38:firstgoal(p2),//ゴール（仮配置),
         48:fes(p2),//地球祭イベント
         49:chanceAchieve(p2),//資格取得イベント
         50:getoffer(p2),//内定取得イベント
@@ -183,7 +183,7 @@ var eventArray = {
     
     2:{ 
         0:announce(),//中間発表イベント
-        //41:firstgoal(),//ゴール（仮配置),
+        41:firstgoal(p3),//ゴール（仮配置),
         48:fes(p3),//地球祭イベント
         49:chanceAchieve(p3),//資格取得イベント
         50:getoffer(p3),//内定取得イベント
@@ -201,7 +201,7 @@ var eventArray = {
     
     3:{ 
         0:announce(),//中間発表イベント
-        //42:firstgoal(),//ゴール（仮配置),
+        42:firstgoal(p4),//ゴール（仮配置),
         48:fes(p4),//地球祭イベント
         49:chanceAchieve(p4),//資格取得イベント
         50:getoffer(p4),//内定取得イベント
@@ -266,9 +266,9 @@ function salary(name) {
         Text = "今日はバイトの給料日。\n";
 
         Text += num + "円手に入れた。";
-    // }else{
-    //     jobget();
-    //     Text = "仕事が" + playersBox[name]["job"] + "になった。";
+    }else{
+        jobget(name);
+        Text = "仕事が" + playersBox[name]["job"] + "になった。";
 
     }
 
@@ -440,9 +440,9 @@ function waste(name){
 */
 }
 
-// //一周してゴールに入った際のイベント
-// function firstgoal(name){
-//     goal(name);
+//一周してゴールに入った際のイベント
+function firstgoal(name){
+    goal(name);
 
-//     return "ゴール！";
-// }
+    return "ゴール！";
+}

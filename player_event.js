@@ -374,23 +374,26 @@ function makechance(name) {
 
 //デートマスのイベント(引数:プレイヤー名  戻り値：イベントテキスト)
 function datetime(name) {
-    const CHOISE = Math.floor(Math.random() * 7);
-    //イベントテキスト
-    
-    const EVENT = ["が、しかし、\nお互いに予定が合わず見送りになった。",
-        "高級レストランに招待。\n",
-        "ペアルックの為に服を買った。\n",
-        "彼女の誕生日！プレゼントを購入。\n",
-        "レストランに行くことになった。\n",
-        "元恋人と出会ってしまった。気まずい。\n",
-        "今日は誕生日だった！\nプレゼントを忘れてしまった。\n"];
-    //消費
-    const WASTE = [0, 15000, 3400, 5500, 1500, 0, 0];
-    //好感度変化
-    const FRIENDLY = [0, 4, 2, 2, -2, -1, -5];
-    date(WASTE[CHOISE], name, FRIENDLY[CHOISE]);
+    var Text = "今日は何もない一日だった。";
+    if(playersBox[name]["girlfriend"] == "あり"){
+        const CHOISE = Math.floor(Math.random() * 7);
+        //イベントテキスト
+        
+        const EVENT = ["が、しかし、\nお互いに予定が合わず見送りになった。",
+            "高級レストランに招待。\n",
+            "ペアルックの為に服を買った。\n",
+            "彼女の誕生日！プレゼントを購入。\n",
+            "レストランに行くことになった。\n",
+            "元恋人と出会ってしまった。気まずい。\n",
+            "今日は誕生日だった！\nプレゼントを忘れてしまった。\n"];
+        //消費
+        const WASTE = [0, 15000, 3400, 5500, 1500, 0, 0];
+        //好感度変化
+        const FRIENDLY = [0, 4, 2, 2, -2, -1, -5];
+        date(WASTE[CHOISE], name, FRIENDLY[CHOISE]);
 
-    var Text = EVENT[CHOISE] + WASTE[CHOISE] + "円の消費、好感度：" + FRIENDLY[CHOISE];
+        Text = EVENT[CHOISE] + WASTE[CHOISE] + "円の消費、好感度：" + FRIENDLY[CHOISE];
+    }
     return Text;
 }
 

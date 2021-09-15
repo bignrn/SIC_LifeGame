@@ -51,7 +51,7 @@ function playersInfoDraw(g){
     //プレイヤーの情報
     var inte = 0;
     for (var i = 0; i < players; i++){
-        playerInfo(g, inte, i, playersBox[i]["name"], playersBox[i]["apply"],playersBox[i]["credit"] ,playersBox[i]["offer"],playersBox[i]["achievement"],playersBox[i]["girlfriend"]);
+        playerInfo(g, inte, i, playersBox[i]["name"], playersBox[i]["apply"],playersBox[i]["credit"] ,playersBox[i]["offer"],playersBox[i]["achievement"],playersBox[i]["girlfriend"],playersBox[i]["job"]);
         inte += 110;    //文字をずらすため
     }
     console.log("player1のplayersBox[0][apply]の値："+playersBox[0]["apply"]);

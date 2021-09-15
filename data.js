@@ -208,7 +208,7 @@ function jobget(name){
 
 //バイト代取得用メソッド(引数:プレイヤー名)   ***要調整***
 function partjob(name) {
-    playersBox[name]["apply"] += jobkind[playersBox[name]["job"]] * 3 * 12
+    return playersBox[name]["apply"] += jobkind[playersBox[name]["job"]] * 3 * 12;
 }
 
 //交際or破局のメソッド(引数:プレイヤー名)(戻り値：イベントテキスト)

@@ -196,8 +196,14 @@ function addfriendly(name, add) {
 
 //バイト先が倒産した場合のメソッド(引数:プレイヤー名)
 function breaking(name) {
-    playersBox[name]["job"] = "なし";
-    console.log("チェックテスト" + name);
+    var ran = Math.floor(Math.random() * 10);
+    if(ran < 3){
+        playersBox[name]["job"] = "なし";
+        return "バイト先が無くなってしまった。\n仕事　なし";
+    }else{
+        return "バイト先の危機だったが、無事だった。";
+
+    }
 }
 
 //バイト先就職用のメソッド(引数プレイヤー名)  ***要調整***

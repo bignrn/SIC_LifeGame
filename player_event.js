@@ -331,7 +331,7 @@ function failed(name) {
         credite(name, -2);
         playersBox[name]["lateday"] = 0;
 
-        Text += "遅刻が3回になった\n単位を2失った。";
+        Text += "\n遅刻が3回になった\n単位を2失った。";
     }
 
     return Text;
@@ -356,9 +356,11 @@ function salary(name) {
 
 //バイト先が無くなるマスのイベント(戻り値：テキスト)
 function breakdown(name) {
-    breaking(name);
-
-    return "バイト先が無くなってしまった。\n仕事　なし";
+    if(playersBox[name]["job"] != "なし"){
+        return breaking(name);
+    }else{
+        return "最近近くの会社が廃業したらしい。";
+    }
 }
 
 //資格取得チャレンジ(確定)(引数:プレイヤー名)(戻り値：テキスト)

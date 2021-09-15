@@ -348,5 +348,4 @@ function sport(name, ran) {
 
 function goal(name) {
     var a = playersBox[name]["friendly"];
-
 }

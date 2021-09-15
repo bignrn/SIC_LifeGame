@@ -8,7 +8,9 @@ Ver.a0_tWind
 //変数
 const WTWIDHT   = 200;
 const WTHEIGHT  = 80;
+const t_max_page = 1;   //画面の数
 
+var t_max_page_lenght;  //ページの数
 /**
  * スタート時に一回呼び出される
  * @param g
@@ -87,19 +89,40 @@ function eventTextDraw(g,text){
         g.fillText(line, x + 0, y + addY ) ;
     }
 }
+
 /**
  * ヘルプ画面の呼び出し
  * @param g コンテキスト
  */
 function helpWindMain(g){
-    console.log("helpSettingWindMain(g)");
-    SettingHelp_setting(g,"ヘルプ画面");
+    console.log("helpWindMain(g)");
+    t_max_page_lenght=0;    //ページの数
+
+    SettingHelp_setting(g,"■ヘルプ画面");
+    //g.fillText("・情報の見方：",40, 63);
+    drawScreenTitle(g,0);
 
     g.fillText("・キーボード操作",40, 53);
-    g.fillText("　〇サイコロを振る:スぺース又はエンター",40, 63);
-    g.fillText("　〇決定ボタン：スぺース又はエンター",40, 73);
-    g.fillText("　〇ページをめくる：矢印キー(←↑→↓)",40, 83);
-    // g.fillText("・情報の見方：",40, 63);
+    g.fillText("　〇サイコロを振る:スぺース、エンター",40, 63);
+    g.fillText("　〇決定ボタン：スぺース、エンター",40, 73);
+    g.fillText("　〇ページ操作：矢印キー(←↑→↓)",40, 83);
+}
+
+/**
+ * ヘルプ画面の呼び出し
+ * @param g コンテキスト
+ */
+function helpWindSecand(g){
+    console.log("helpWindSecand(g)");
+    t_max_page_lenght=1;    //ページの数
+
+    SettingHelp_setting(g,"■情報の見方");
+    drawScreenTitle(g,1);
+
+    g.fillText("・普通マス",40, 53);
+    g.fillText("　〇",40, 63);
+    g.fillText("　〇",40, 73);
+    g.fillText("　〇",40, 83);
 }
 
 /**
@@ -127,6 +150,7 @@ function SettingTextWind(g){
     g.fillRect(position+1,position-1,WTWIDHT - BORDER ,WTHEIGHT - BORDER);
     g.fillStyle = "black";  //枠線の色
 }
+
 /**
  * ヘルプ・設定ウィンドウ用設定
  * @param g         コンテキスト
@@ -147,4 +171,43 @@ function SettingHelp_setting(g,bigTitle){
 
     //タイトルテキスト
     g.fillText(bigTitle,37, 43);
+}
+
+/**
+ * 現在表示されている選択画面のタイトル表示変更
+ */
+function drawScreenTitle(g,interval){
+    //ウィンドウ
+    var ADD = 20;
+    g.fillStyle = "black";  //枠線の色
+    g.fillRect(35,23,50,10);
+    g.fillStyle = "white";  //背景の色
+    g.fillRect(36,24,50,10);
+    g.fillStyle = "black";  //枠線の色
+    g.fillText("操作について",37, 32);
+}
+
+////////////////////////////////
+//
+//BUG注意
+//ページを変えた状態で画面を移動するとページ番号が残る
+//
+///////////////////////////////
+/**
+ * ページ番号と矢印の表示処理
+ * @param g
+ * @param int
+ */
+function tDrawPageNum(g,int){
+    if(t_max_page_lenght!=0){   //ページの移動がない時はページ番号だけ返す。
+        if(int==0){
+            g.fillText("↓",220,130);  //1ページ目
+        }else if(int == t_max_page_lenght){
+            g.fillText("↑",220,130);  //最後のページ
+        }else if(int>0){
+            g.fillText("↓",220,130);  //中間のページ
+            g.fillText("↑",220,120);
+        }
+    }
+    g.fillText((int+1)+"ページ",37,130);
 }

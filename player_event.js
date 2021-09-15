@@ -19,7 +19,7 @@ let e_event_flg = false;    //イベントが呼ばれたかを確認
 let e_keyNum    = -1;       //押されたキーボード番号を取得
 let e_gameWatch = true;     //スタート画面を消す
 let e_btn_index = 0;        //ボタンの移動
-let e_max_page_length;
+var e_btn_help  = [0,0];//ヘルプ画面のボタン移動記録(左右、上下)
 var e_pNum; 　　　　　　　　　　//プレイヤーナンバー
 var e_eNum; 　　　　　　　　　　//イベント番号
 
@@ -45,7 +45,7 @@ function playerEventMain(g) {
     }
     //ヘルプボタンが押された時に
     if (e_sw_flg){
-        helpWindMain(g);//ヘルプ画面が表示される
+        helpWinds(g);    //ヘルプ画面とその他の画面表示
     }
     //イベント発生時にボタンで消す処理
     if(e_event_flg){
@@ -56,6 +56,20 @@ function playerEventMain(g) {
         endWind(g);
     }
 }
+
+/**
+ * ヘルプ画面のキーボード操作
+ * @param g
+ */
+function helpWinds(g){
+    if(e_btn_help[0]==0){
+        helpWindMain(g);    //キーボード操作のヘルプ画面が表示される
+    }else if(e_btn_help[0]==1){
+        helpWindSecand(g);  //イベント種類の情報ヘルプ画面が表示される
+    }
+    tDrawPageNum(g,e_btn_help[1]);
+}
+
 /**
  * イベントウィンドウを表示する為のfunction
  * @param pNum プレイヤーナンバー
@@ -94,6 +108,7 @@ function gameWatch(){
         e_event_flg = false;
     }
 }
+
 /**
  * キーイベント
  */
@@ -102,16 +117,36 @@ window.onkeydown = function (e) {
     const KENTER = 13;   //キーボード番号設定
     let c = e.keyCode;//キーコード取得
 
-    if (c == KLEFT && e_btn_index>0) {
+    if (c == KLEFT) {
         console.log("左");
-        e_btn_index--;
+        if(e_btn_index>0&&!e_sw_flg){
+            e_btn_index--;  //プレイヤー情報画面
+        }
+        if(e_btn_help[0]>0){
+            e_btn_help[0]--;//ヘルプ画面
+        }
     }                                       //左
-    if (c == KUP) { console.log("上") }     //上
-    if (c == KRIGHT && e_btn_index<1) {
+    if (c == KUP) {
+        console.log("上");
+        if(e_btn_help[1]>0){
+            e_btn_help[1]--;//ヘルプ画面
+        }
+    }     //上
+    if (c == KRIGHT) {
         console.log("右");
-        e_btn_index++;
+        if(e_btn_index<1&&!e_sw_flg){
+            e_btn_index++;  //プレイヤー情報画面の変数
+        }
+        if(e_btn_help[0]<t_max_page){
+            e_btn_help[0]++;//ヘルプ画面
+        }
     }                                       //右
-    if (c == KDOWN) { console.log("下") }   //下
+    if (c == KDOWN) {
+        console.log("下");
+        if(e_btn_help[1]<t_max_page_lenght){
+            e_btn_help[1]++;    //ヘルプ画面
+        }
+    }                                       //下
     //bugの阻止のため。ゲームが始まってから使える様に設定。かつ、イベント発生時も起動しない。
     if (!e_gameWatch && c == KH && !e_event_flg) {
         console.log("H");

@@ -14,6 +14,7 @@ const I_PADING_Y= -2;               //Y軸方向に選択背景をずらす
 
 let WiWidth   = 290;                //ウィンドウ幅
 let WiHeight  = 550;                //ウィンドウ高さ
+let i_max_page_length;              //ウィンドウの最大数
 let playerImage = "./img/player.png"
 /**
  * main function
@@ -25,7 +26,7 @@ function playerInfoMain(){
     const ca = document.getElementById("info"); //ID取得
     const g = ca.getContext("2d");
 
-    e_max_page_length = 1;
+    i_max_page_length = 1;
     if(e_btn_index==0){
         playersInfoDraw(g); //プレイヤーの情報
     }else if(e_btn_index==1){
@@ -150,10 +151,15 @@ function playerImageDraw(g,index,interval,x,y){
     g.drawImage(gPlayerImage, pix,piy,TILESIZE,TILESIZE,10 + x,20 + y + interval,32,32);
 }
 
+/**
+ * ページ番号と矢印の表示処理
+ * @param g
+ * @param int
+ */
 function drawPageNum(g,int){
     if(int==0){
         g.fillText("進む→",200,540);  //1ページ目
-    }else if(int == e_max_page_length){
+    }else if(int == i_max_page_length){
         g.fillText("←戻る",10,540);   //最後のページ
     }else if(int>0){
         g.fillText("進む→",200,540);  //中間のページ

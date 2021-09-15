@@ -92,14 +92,8 @@ function Timer(){
     g.fillText(dice_g, 10, 20);
 
     //****Norarun の作業↓
-    //【他のファイルからの呼び出し】
     playerInfoMain();   //playerInfoのfunctionを呼び出し
     playerEventMain(g); //player_eventのfunctionを呼び出し
-    // if(gCount == 15){    //イベントデバック
-    //     getPlayerNum(p1,55);
-    // }
-    //****Norarun の仕業↑
-    // textWindMain(g);
     //****Norarun の作業↑
     g2.drawImage(Screen,0,0,Screen.width,Screen.height,0,0,Screen.width * 4,Screen.height * 4);
 }
@@ -231,7 +225,7 @@ window.onload = function (){
     Screen.width = WIDTH;
     Screen.height = HEIGHT;
 
-    defaultset();   //データを
+    // defaultset();
 
     setInterval(function (){Timer()},400);//500msで呼び出す
 }

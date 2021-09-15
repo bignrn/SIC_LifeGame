@@ -59,9 +59,9 @@ function playerEventMain(g) {
  */
 function getPlayerNum(pNum,eNum){
     console.log("getPlayerNum("+pNum+","+eNum+")");
-  e_event_flg = true; //イベント画面のフラグ
-  e_eNum = eNum;      //イベント番号をグローバル変数に格納
-  e_pNum = pNum;      //プレイヤー番号をグローバル変数に格納
+    e_event_flg = true; //イベント画面のフラグ
+    e_eNum = eNum;      //イベント番号をグローバル変数に格納
+    e_pNum = pNum;      //プレイヤー番号をグローバル変数に格納
 }
 /**
  * ヘルプボタン処理
@@ -143,9 +143,11 @@ var p2 = 1;
 var p3 = 2;
 var p4 = 3;
 
+
 var eventArray = {
     0:{
         0:announce(),//中間発表イベント
+        37:firstgoal(),//ゴール（仮配置)
         48:fes(p1),//地球祭イベント
         49:chanceAchieve(p1),//資格取得イベント
         50:getoffer(p1),//内定取得イベント
@@ -163,6 +165,7 @@ var eventArray = {
     
     1:{ 
         0:announce(),//中間発表イベント
+        38:firstgoal(),//ゴール（仮配置),
         48:fes(p2),//地球祭イベント
         49:chanceAchieve(p2),//資格取得イベント
         50:getoffer(p2),//内定取得イベント
@@ -180,6 +183,7 @@ var eventArray = {
     
     2:{ 
         0:announce(),//中間発表イベント
+        41:firstgoal(),//ゴール（仮配置),
         48:fes(p3),//地球祭イベント
         49:chanceAchieve(p3),//資格取得イベント
         50:getoffer(p3),//内定取得イベント
@@ -197,6 +201,7 @@ var eventArray = {
     
     3:{ 
         0:announce(),//中間発表イベント
+        42:firstgoal(),//ゴール（仮配置),
         48:fes(p4),//地球祭イベント
         49:chanceAchieve(p4),//資格取得イベント
         50:getoffer(p4),//内定取得イベント
@@ -255,10 +260,16 @@ function failed(name) {
 
 //バイト代取得マスのイベント(引数：プレイヤー名)(戻り値：テキスト)
 function salary(name) {
-    var num = partjob(name);
-    var Text = "今日はバイトの給料日。\n";
+    if(playersBox[name]["job"] != "なし"){
+        var num = partjob(name);
+        var Text = "今日はバイトの給料日。\n";
 
-    Text += num + "円手に入れた。";
+        Text += num + "円手に入れた。";
+    }else{
+        jobget();
+        var Text = "仕事が" + playersBox[name]["job"] + "になった。";
+
+    }
 
     return Text;
 }
@@ -319,7 +330,7 @@ function getoffer(name) {
     //70%で内定取得するための乱数
     var n = Math.floor(Math.random() * 10);
 
-    var posittion = offered(name, n , playersBox[playernumber]["achievement"]);
+    var posittion = offered(name, n , playersBox[name]["achievement"]);
 
     if(posittion != "なし"){
         return "内定を獲得した。\n内定：" + posittion;
@@ -411,13 +422,13 @@ function waste(name){
     //イベントの影響の反映用ファンクション(引数：消費金額 , プレイヤー名)
     addmoney(wasteMoney[ran], name);
     //ファンクションが返すテキストの生成
-    var Text = EVENT[ran] + wasteMoney[ran] + "円の消費。";
+    var Text = EVENT[ran] + Math.abs(wasteMoney[ran]) + "円の消費。";
     //親に借金をするかどうかの判定
-    if(playersBox[playernumber]["apply"] < 0){
+    if(playersBox[name]["apply"] < 0){
         Text += "\n所持金がなくなってしまった！\n仕方なく親にお金を借りた事になった。";
     }
     //現在の所持金を明示するための追加
-    Text += "\n所持金：" + playersBox[playernumber]["apply"] + "円";
+    Text += "\n所持金：" + playersBox[name]["apply"] + "円";
 
     return Text;
     
@@ -426,4 +437,11 @@ function waste(name){
 　＞今日は「母の日」、日ごろの感謝を込めてプレゼントを購入。10,000円の消費
 　＞今日は「父の日」、日ごろの感謝を込めてプレゼントを購入。10,000円の消費
 */
+}
+
+//一周してゴールに入った際のイベント
+function firstgoal(name){
+    playersBox[name]["round"]++;
+
+    return "ゴール！";
 }

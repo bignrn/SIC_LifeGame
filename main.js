@@ -213,7 +213,10 @@ function GetMove() {
     Starts[np] = move(np, moving);
     var longitude = Starts[np][0] / 8;
     var latitude = Starts[np][1] / 8;
-    getPlayerNum(np, Map[latitude][longitude]);
+    if (Starts[np] == -1)
+        console.log("/----clear!!!----/");
+    else
+        getPlayerNum(np, Map[latitude][longitude]);
     turn_player++;
 }
 

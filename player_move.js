@@ -4,6 +4,7 @@ var tile_size;
 var player_first_position;
 var player_flag = [true, true, true, true];
 var orbit_flag = [false, false, false, false];
+var orbit_count = [0,0,0,0];
 var xy_flag = [0,0,0,0];
 var plus_minus = [1,1,1,1];
 var count = 0;
@@ -52,9 +53,19 @@ function move(p, rep) {
             player_position[p][1] = player_first_position[p][1];
             xy_flag[p] = 0;
             plus_minus[p] = 1;
+            orbit_count[p]++;
+            var orbit_end_flag = true;
+            for (var i = 0; i < orbit_count.length; i++) {
+                if (orbit_count[i] < 2) {
+                    orbit_end_flag = false;
+                }
+            }
+            if (orbit_end_flag) {
+                player_position[p] = -1;
+            }
             break;
         }
-        if(MapData[ixy[1]][ixy[0]] < 48) {
+        if(orbit_count[p] < 2 && MapData[ixy[1]][ixy[0]] < 48) {
             player_position[p][xy_flag[p]] -= plus_minus[p] * tile_size;
             ixy[xy_flag[p]] -= plus_minus[p];
             if(xy_flag[p] == 0 && (MapData[ixy[1] + 1][ixy[0]] >= 32)) {

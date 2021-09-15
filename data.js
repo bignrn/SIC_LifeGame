@@ -35,6 +35,7 @@ var playersBox = {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
+            "round": 0,
         },
         1:{
             "name":"",
@@ -45,6 +46,7 @@ var playersBox = {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
+            "round": 0,
         },
         2:{
             "name":"",
@@ -55,6 +57,7 @@ var playersBox = {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
+            "round": 0,
         },
         3:{
             "name":"",
@@ -65,6 +68,7 @@ var playersBox = {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
+            "round": 0,
         },
     }
 
@@ -83,7 +87,7 @@ function defaultset() {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
-            "round":0,
+            "round": 0,
         },
         1:{
             "name":"",
@@ -94,7 +98,7 @@ function defaultset() {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
-            "round":0,
+            "round": 0,
         },
         2:{
             "name":"",
@@ -105,7 +109,7 @@ function defaultset() {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
-            "round":0,
+            "round": 0,
         },
         3:{
             "name":"",
@@ -116,7 +120,7 @@ function defaultset() {
             "friendly": 0,
             "credit": 0,
             "job": "なし",
-            "round":0,
+            "round": 0,
         },
     }
 }
@@ -338,3 +342,7 @@ function sport(name, ran) {
     return 0;
 }
 
+function goal(name) {
+    var a = playersBox[name]["friendly"];
+
+}

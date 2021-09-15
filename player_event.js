@@ -49,7 +49,7 @@ function playerEventMain(g) {
     }
     //イベント発生時にボタンで消す処理
     if(e_event_flg){
-     eventTextDraw(g,eventArray[e_pNum][e_eNum]);
+     eventTextDraw(g,eventSwitch(e_pNum , e_eNum));
     }
     //クリア画面。ブラウザの更新しない限り消えない
     if(g_end_flag){
@@ -223,7 +223,7 @@ var p4 = 3;
 //         63:waste(p2),//お金浪費イベント
 //     },
     
-//     2:{ 
+//     2:{
 //         0:announce(),//中間発表イベント
 //         41:firstgoal(p3),//ゴール（仮配置),
 //         48:fes(p3),//地球祭イベント

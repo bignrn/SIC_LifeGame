@@ -324,11 +324,15 @@ function failed(name) {
     }
 
     if (flag == "欠席") {
-        credite(name, -2);
+        if(playersBox[name]["credit"] > 2){
+            credite(name, -2);
+        }
 
         Text = "授業を欠席してしまった。\n単位を2失った。"
     } else if (playersBox[name]["lateday"] == 3) {
-        credite(name, -2);
+        if(playersBox[name]["credit"] > 2){
+            credite(name, -2);
+        }
         playersBox[name]["lateday"] = 0;
 
         Text += "\n遅刻が3回になった\n単位を2失った。";
@@ -417,7 +421,7 @@ function getoffer(name) {
 
     var posittion = offered(name, n , playersBox[name]["achievement"]);
 
-    if(posittion != "なし"){
+    if(posittion != "未定"){
         return "内定を獲得した。\n内定：" + posittion;
     }else{
         return "お祈りメールをもらった。\n内定：なし"; 

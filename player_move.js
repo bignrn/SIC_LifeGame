@@ -48,8 +48,10 @@ function setPosition(l, f, s){
     for(var i = 0; i < f.length; i++){
         first_tile[i] = f[i];
     }
+    //第１マスのタイル位置を取得
     var f_longitude = Math.floor(f[1] / 8);
     var f_latitude = Math.floor(f[0] / 8);
+    //第１マスに隣接している移動可能マスの上下左右判定
     if (MapData[f_longitude][f_latitude + 1] >= 48) {
         f_xy_flag = 0;
         f_plus_minus = 1;
@@ -63,6 +65,7 @@ function setPosition(l, f, s){
         f_xy_flag = 1;
         f_plus_minus = -1;
     }
+    //取得した上下左右方向を各プレイヤー情報に格納
     for (var i = 0; i < players; i++) {
         xy_flag[i] = f_xy_flag;
         plus_minus[i] = f_plus_minus;

@@ -8,7 +8,7 @@ ver:a0
 cells.png    : 8x16
 building.png : 16x24
 player.png   : 16x16
-tiles.png   : 48*40
+tiles.png   : 64x64
 ==================
 
 参考URL:
@@ -33,7 +33,7 @@ document.write("<script src='player_move.js'></script>");//JSファイルの読�
 
 //変数・定数
 const FONT = "10px monospace"; //フォント設定
-const TILESIZE = 8; //8ドット
+const TILESIZE = 8; //タイルの幅(8ドット)
 const TILECOLUMN = 8;   //画像タイルの列数
 
 const WIDTH = 248;    //仮想画面の幅
@@ -45,14 +45,14 @@ let gImageMap;
 
 var Map = function (){getMapData()};  //マップタイルの要素番号を取得(←map.js)
 var Starts; //プレイヤー駒の初期位置
-var FirstTile;
-let players = 4; //プレイヤー人数
+var FirstTile;  //第１マスの座標
+let players = 4;//プレイヤー人数
 var order_player = ["1P", "2P", "3P", "4P"];    //プレイヤー名呼出用
 var order_String = "";  //順番表示用
 var dice_g = ""; //ダイスの出目
 var titleflag = true;   //人数選択したか判断する用
-var turn_player = 0;
-var g_end_flag = false;
+var turn_player = 0;    //現在のプレイヤーを判断する用
+var g_end_flag = false; //ゲームが終了したか判断する用
 
 /**
  * タイマーイベント
@@ -161,7 +161,6 @@ function DrawTile(g, idx, x, y) {
     */
 }
 
-// 追記箇所。人数の設定から確定まで
 /**
  * ラジオボタンで指定された人数の取得
  * @constructor
@@ -190,6 +189,7 @@ function NonePlayers(){
 
     e_gameWatch = false;    //スタート画面を消すため
 
+    //順番項目を人数分の長さにして写す
     for (var i = 0; i < players; i++) {
         order_String += order_player[i];
         order_String += " → ";
@@ -199,8 +199,11 @@ function NonePlayers(){
     setMapData(Map);
     setPosition(Starts, FirstTile, TILESIZE);
 }
-//ここまで追記箇所
 
+/**
+ * サイコロの出目だけプレイヤーを移動させ、ゲームが終了したかを確認する
+ * @constructor
+ */
 function GetMove() {
     var gp;
     if (!g_end_flag) {
